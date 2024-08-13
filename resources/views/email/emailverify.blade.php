@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Email Verify</h1>
-    <p>{{ $data->email_verify_token }}</p>
+    <p>{{ $data['email_verify_token'] }}</p>
 </body>
 </html>

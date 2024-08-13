@@ -1,7 +1,7 @@
 @if (session()->has('message'))
     <script>window.alert({{ session('message') }})</script>
 @endif
-<form action="{{ route('f_register') }}" method="POST">
+<form action="{{ route('f_login') }}" method="POST">
     @csrf
     <label for="">Username:</label>
     <input type="text" name="name" value="{{ old('name') }}">
@@ -14,4 +14,5 @@
         <p>{{ $message }}</p>
     @enderror
     <input type="submit">
-</form>
+</form> 
+<a href="{{ route('register') }}"><button>Register</button></a>

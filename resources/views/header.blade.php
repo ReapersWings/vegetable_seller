@@ -4,7 +4,7 @@
         <P>Name:{{ auth()->user()->name }}</P>
         <a href="{{ route('logout') }}"><button>Logout</button></a>
     @else
-
+        <a href="{{ route('login') }}"><button>Login</button></a>
     @endauth
 </header>
 @yield('content')
