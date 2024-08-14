@@ -34,7 +34,8 @@
             }
             
         }
-    </script> 
+    </script>
+    <a href="{{ route('view_addres') }}"><button>View Addres</button></a>
     <table>
         <thead>
             <th></th>

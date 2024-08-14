@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\address;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,19 @@ class userdata_controller extends Controller
 {
     public function userdata(){
         return view('userdata');
+    }
+    public function addres(){
+        return view('view_addres',[
+            'data'=>address::where('user_id','=',Auth::user()->id)
+        ]);
+    }
+    public function edit_addres(address $editaddres){
+        return view('add_addres',[
+            'data'=>$editaddres
+        ]);
+    }
+    public function add_addres(){
+        return view('add_addres');
     }
     public function f_edit(Request $request){
         
@@ -20,11 +34,39 @@ class userdata_controller extends Controller
             'gender'=>'required'
         ]);
         if ($request->email === Auth::user()->email) {
+            $formregister['email_verify_token']=rand(100000,999999);
             $formedit['email_verified_at']='';
         }
-        
         User::where('id','=','auth()->user()->id')->update($formedit);
-        return redirect()->route('verify')->with('message','please verify your email!');
-
+        if ($formedit['email_verified_at']==='') {
+            return redirect()->route('verify')->with('message','please verify your email!');
+        }else{
+            return redirect()->route('userdata')->with('message','edit successful');
+        }
+    }
+    public function f_add_addres(Request $request){
+        $formadd=$request->validate([
+            'addres_1'=>'required',
+            'addres_2'=>'required',
+            'post_code'=>'required|numeric',
+            'name_location'=>'required',
+            'city'=>'required',
+            'state'=>'required'
+        ]);
+        $formadd['user_id']=Auth::user()->id ;
+        address::create($formadd);
+        return redirect()->route('view_addres')->with('message','add address successful');
+    }
+    public function f_edit_addres(address $editaddres , Request $request ){
+        $formedit=$request->validate([
+            'address1'=>'required',
+            'address2'=>'required',
+            'post_code'=>'required|numeric',
+            'name_location'=>'required',
+            'city'=>'required',
+            'state'=>'required'
+        ]);
+        $editaddres->update($formedit);
+        return redirect()->route('view_addres')->with('message','Edit address successful');
     }
 }

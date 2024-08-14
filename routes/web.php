@@ -17,5 +17,10 @@ Route::controller(user_controller::class)->group(function(){
 });
 Route::controller(userdata_controller::class)->group(function(){
     Route::get('/userdata','userdata')->name('userdata')->middleware(check_auth::class);
+    Route::get('/view_addres','addres')->name('view_addres')->middleware(check_auth::class);
+    Route::get('/add_addres','add_addres')->name('add_addres')->middleware(check_auth::class);
+    Route::get('/edit_addres/{editaddres}','edit_addres')->name('edit_addres')->middleware(check_auth::class);
+    Route::get('/edit_addres/{editaddres}','f_edit_addres')->name('f_edit_addres')->middleware(check_auth::class);
     Route::post('/userdata','f_edit')->name('f_edit')->middleware(check_auth::class);
+    Route::post('/add_addres','f_add_address')->name('f_add_addres')->middleware(check_auth::class);
 });
