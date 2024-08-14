@@ -17,5 +17,5 @@ Route::controller(user_controller::class)->group(function(){
 });
 Route::controller(userdata_controller::class)->group(function(){
     Route::get('/userdata','userdata')->name('userdata')->middleware(check_auth::class);
-    
+    Route::post('/userdata','f_edit')->name('f_edit')->middleware(check_auth::class);
 });

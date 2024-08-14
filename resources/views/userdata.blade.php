@@ -14,8 +14,8 @@
                 textvalue.push(
                     '{{ auth()->user()->name }}',
                     '{{ auth()->user()->email }}',
-                    '{{ !auth()->user()->Noic?"Null":auth()->user()->Noic }}',
-                    '{{ !auth()->user()->gender?"Null":auth()->user()->gender }}'   
+                    '{{ !auth()->user()->Noic?"":auth()->user()->Noic }}',
+                    '{{ !auth()->user()->gender?"":auth()->user()->gender }}'   
                 )
                 cau++
             } else{
@@ -40,23 +40,23 @@
             <th></th>
             <th>Data:</th>
         </thead>
-        <form action="" method="post">
+        <form action="{{ route('f_edit') }}" method="post">
             @csrf
             <tr>
                 <td>Name:</td>
-                <td><input type="text" id="input1" value="{{ auth()->user()->name }}" readonly></td>
+                <td><input type="text" name="name" id="input1" value="{{ auth()->user()->name }}" readonly></td>
             </tr>
             <tr>
                 <td>Email:</td>
-                <td><input type="text" id="input2" value="{{ auth()->user()->email }}" readonly></td>
+                <td><input type="text" name="email" id="input2" value="{{ auth()->user()->email }}" readonly></td>
             </tr>
             <tr>
                 <td>No.ic:</td>
-                <td><input type="text" id="input3" value="{{ !auth()->user()->Noic?'Null':auth()->user()->Noic }}" readonly></td>
+                <td><input type="text" name="Noic" id="input3" value="{{ !auth()->user()->Noic?'':auth()->user()->Noic }}" readonly></td>
             </tr>
             <tr>
                 <td>gender:</td>
-                <td><input type="text" id="input4" value="{{ !auth()->user()->gender?'Null':auth()->user()->gender }}" readonly></td>
+                <td><input type="text" name="gender" id="input4" value="{{ !auth()->user()->gender?'':auth()->user()->gender }}" readonly></td>
             </tr>
             <tr id="hidden" style="display: none">
                 <td>
