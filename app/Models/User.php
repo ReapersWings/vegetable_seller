@@ -20,7 +20,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'email_verify_token'
+        'email_verify_token',
+        'Noic',
+        'gender'
     ];
 
     /**
