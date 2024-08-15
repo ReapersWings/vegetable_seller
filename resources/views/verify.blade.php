@@ -1,3 +1,5 @@
+@extends('form_header')
+@section('content')
 @if (session()->has('message'))
     <script>window.alert({{ session('message') }})</script>
 @endif
@@ -5,5 +7,6 @@
     @csrf
     <label for="">Email Verify:</label>
     <input type="text" name="token">
-    <input type="submit">
+    <input type="submit" id="submit">
 </form>
+@endsection

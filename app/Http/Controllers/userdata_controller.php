@@ -31,16 +31,14 @@ class userdata_controller extends Controller
     }
     public function f_edit(Request $request){
         $data=User::where('id','=',Auth::user()->id) ;
-        $checkemail=$data->get() ;
-        //dd($checkemail[0]->email);
-        //dd($request->input('email'));
+        $checkemail=$data->get();
         $formedit=$request->validate([
             'name'=>'required',
             'email'=>'required',
             'Noic'=>'required|numeric|digits_between:12,12',
             'gender'=>'required'
         ]);
-        if ($request->input('email') == $checkemail[0]->email) {
+        if ($request->input('email') !== $checkemail[0]->email) {
             $formedit['email_verify_token']=rand(100000,999999);
             $formedit['email_verified_at']=Null;
             $data->update($formedit);
