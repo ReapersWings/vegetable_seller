@@ -1,4 +1,4 @@
-<form action="{{ !$data?route('f_add_addres'):route('f_edit_addres') }}" method="post">
+<form action="{{ !$data?route('f_add_addres'):route('f_edit_addres',['editaddres'=>$data->id]) }}" method="post">
     @csrf
     <label for="">Name Location:</label>
     <input type="text" value="{{ !$data?"":$data->name_location }}" name="name_location">

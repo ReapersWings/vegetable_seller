@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\emailverify;
 use App\Models\address;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class userdata_controller extends Controller
 {
@@ -14,7 +16,7 @@ class userdata_controller extends Controller
     }
     public function addres(){
         return view('view_addres',[
-            'data'=>address::where('user_id','=',Auth::user()->id)
+            'data'=>address::where('user_id','=',Auth::user()->id)->get()
         ]);
     }
     public function edit_addres(address $editaddres){
@@ -23,24 +25,29 @@ class userdata_controller extends Controller
         ]);
     }
     public function add_addres(){
-        return view('add_addres');
+        return view('add_addres',[
+            'data'=>''
+        ]);
     }
     public function f_edit(Request $request){
-        
+        $data=User::where('id','=',Auth::user()->id) ;
+        $checkemail=$data->get() ;
+        //dd($checkemail[0]->email);
+        //dd($request->input('email'));
         $formedit=$request->validate([
             'name'=>'required',
             'email'=>'required',
             'Noic'=>'required|numeric|digits_between:12,12',
             'gender'=>'required'
         ]);
-        if ($request->email === Auth::user()->email) {
-            $formregister['email_verify_token']=rand(100000,999999);
-            $formedit['email_verified_at']='';
-        }
-        User::where('id','=','auth()->user()->id')->update($formedit);
-        if ($formedit['email_verified_at']==='') {
+        if ($request->input('email') == $checkemail[0]->email) {
+            $formedit['email_verify_token']=rand(100000,999999);
+            $formedit['email_verified_at']=Null;
+            $data->update($formedit);
+            Mail::to($request->email)->send(new emailverify($formedit));
             return redirect()->route('verify')->with('message','please verify your email!');
         }else{
+            $data->update($formedit);
             return redirect()->route('userdata')->with('message','edit successful');
         }
     }

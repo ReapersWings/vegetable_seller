@@ -49,7 +49,7 @@
             </tr>
             <tr>
                 <td>Email:</td>
-                <td><input type="text" name="email" id="input2" value="{{ auth()->user()->email }}" readonly></td>
+                <td><input type="email" name="email" id="input2" value="{{ auth()->user()->email }}" readonly></td>
             </tr>
             <tr>
                 <td>No.ic:</td>
