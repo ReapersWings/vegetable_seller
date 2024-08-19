@@ -35,7 +35,7 @@
             
         }
     </script>
-    <a href="{{ route('view_addres') }}"><button>View Addres</button></a>
+    <a href="{{ route('view_addres') }}" id="button"><button id="button">View Addres</button></a>
     <table>
         <thead>
             <th></th>
@@ -73,9 +73,19 @@
         </tr>
     </table>
 <style>
+    #button{
+        width: 100%;
+        height: 25px;
+    }
     table,th,td{
         text-align: center;
         border: 2px solid black;
+    }
+    table{
+        width: 100%;
+    }
+    input{
+        width: 100%;
     }
 </style>
 @endsection

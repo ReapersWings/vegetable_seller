@@ -1,11 +1,16 @@
 <header>
-    <img src="{{ asset('storage/img_example/') }}" alt="">
-    @auth
-        <P><a href="{{ route('userdata') }}">{{ auth()->user()->name }}</a></P>
-        <a href="{{ route('logout') }}"><button>Logout</button></a>
-    @else
-        <a href="{{ route('login') }}"><button>Login</button></a>
-    @endauth
+    
+    <div>
+        <img src="{{ asset('storage/img_example/') }}" alt="">
+        <a href="{{ route('main') }}"><button>Vegetable seller</button></a>
+        @auth
+            <P><a href="{{ route('userdata') }}">{{ auth()->user()->name }}</a></P>
+            <a href="{{ route('logout') }}"><button>Logout</button></a>
+        @else
+            <a href="{{ route('login') }}"><button>Login</button></a>
+        @endauth
+    </div>
+    
 </header>
 <div id="content">
     @yield('content')

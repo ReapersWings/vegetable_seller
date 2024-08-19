@@ -25,7 +25,7 @@ class user_controller extends Controller
     }
     public function main(){
         return view('main',[
-            'data'=>products::paginate(6)
+            'data'=>products::where("p_total_quantity",">","0")->paginate(6)
         ]);
     }
     public function f_verify(Request $request){

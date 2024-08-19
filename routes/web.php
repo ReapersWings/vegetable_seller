@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\product_controller;
 use App\Http\Controllers\user_controller;
 use App\Http\Controllers\userdata_controller;
 use App\Http\Middleware\check_auth;
@@ -26,4 +27,8 @@ Route::controller(userdata_controller::class)->group(function(){
     Route::post('/userdata','f_edit')->name('f_edit')->middleware(check_verify_email::class);
     Route::post('/add_addres','f_add_addres')->name('f_add_addres')->middleware(check_verify_email::class);
     Route::post('/delete_addres','f_delete_addres')->name('delete_addres')->middleware(check_verify_email::class);
+});
+Route::controller(product_controller::class)->group(function(){
+    Route::get('/add_product','add_product');
+    Route::post('/f_add_product','f_add_product')->name('f_add_product');
 });
