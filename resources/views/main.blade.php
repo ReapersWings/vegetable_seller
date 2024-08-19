@@ -3,7 +3,7 @@
     <h1>Vegetables or fruits seller</h1>
     @foreach ($data as $row)
     
-        <a href="">
+        <a href="{{ route('product_data',['data'=>$row->id]) }}">
             <button class="product">
                 <div class="border">
                     <img src="{{ asset('storage/'.$row->image) }}" alt="" class="image">

@@ -10,6 +10,11 @@ class product_controller extends Controller
     public function add_product(){
         return view('add_product');
     }
+    public function view_product(products $data){
+        return view('view_product',[
+            'data'=>$data
+        ]);
+    }
     public function f_add_product(Request $request){
         $formaddproduct=$request->validate([
             'image'=>'required',

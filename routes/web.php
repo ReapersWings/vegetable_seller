@@ -30,5 +30,7 @@ Route::controller(userdata_controller::class)->group(function(){
 });
 Route::controller(product_controller::class)->group(function(){
     Route::get('/add_product','add_product');
+    Route::get('/view_product_data/{data}','view_product')->name('product_data');
     Route::post('/f_add_product','f_add_product')->name('f_add_product');
+    
 });

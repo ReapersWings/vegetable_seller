@@ -1,5 +1,4 @@
 <header>
-    
     <div>
         <img src="{{ asset('storage/img_example/') }}" alt="">
         <a href="{{ route('main') }}"><button>Vegetable seller</button></a>
