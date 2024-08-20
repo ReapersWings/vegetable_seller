@@ -36,5 +36,7 @@ Route::controller(product_controller::class)->group(function(){
     
 });
 Route::controller(cart_controller::class)->group(function(){
+    Route::get('/cart','view_cart')->name('cart');
     Route::post('/add_cart','f_add_cart')->name('f_add_cart');
+
 });

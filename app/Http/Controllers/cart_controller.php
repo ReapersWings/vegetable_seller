@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\address;
 use App\Models\carts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class cart_controller extends Controller
 {
+    public function view_cart(){
+        return view('view_cart',[
+            'cart'=>[carts::join('products','products.id','=','carts.product_id')->where('carts.user_id','=',Auth::user()->id)->get()],
+            'addres'=>[address::where('user_id','=',Auth::user()->id)]
+        ]);
+    }
     public function f_add_cart(Request $request){
         //dd($request);
         $formadd=$request->validate([

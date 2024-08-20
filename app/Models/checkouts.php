@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class checkouts extends Model
 {
     use HasFactory;
+    protected $fillable=['checkout_id','user_id','product_id','c_state','c_quantity','c_total_price'];
     public function co_pickups(){
         return $this->hasOne(pickups::class);
     }

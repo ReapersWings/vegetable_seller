@@ -7,6 +7,7 @@
     <div>
         <img src="{{ asset('storage/img_example/') }}" alt="">
         <a href="{{ route('main') }}"><button>Vegetable seller</button></a>
+        <a href="{{ route('cart') }}"><button>Cart</button></a>
         @auth
             <P><a href="{{ route('userdata') }}">{{ auth()->user()->name }}</a></P>
             <a href="{{ route('logout') }}"><button>Logout</button></a>
