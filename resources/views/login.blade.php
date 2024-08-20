@@ -17,7 +17,7 @@
         <p>{{ $message }}</p>
     @enderror
     <input type="submit" id="submit">   
-    
+    <a href="{{ route('register') }}"><button type="button" id="submit">Register</button></a>
 </form> 
-<a href="{{ route('register') }}"><button  id="submit">Register</button></a>
+
 @endsection

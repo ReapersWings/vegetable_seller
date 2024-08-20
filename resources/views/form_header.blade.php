@@ -1,3 +1,8 @@
+@session('message')
+    <script>
+        window.alert('{{ session("message") }}')
+    </script>
+@endsession 
 <div>
     @yield('content')
 </div>
@@ -5,8 +10,8 @@
     body{
         background-color: aquamarine;
     }
-    div{
-        width: 50%;
+    div{    
+        max-width: 50%;
         border-radius: 25px ;
         text-align: center;
         margin-top: 50px;
@@ -18,6 +23,7 @@
     }
     form{
         padding: 25px;
+        margin: 0%;
     }
     label{
         float: left;

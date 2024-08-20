@@ -25,7 +25,7 @@
                 <a href="{{ route('edit_addres',['editaddres'=>$row->id]) }}" class="button"><button class="button">Edit</button></a>
             </td>
             <td>
-                <a href="{{ route('delete_addres') }}" class="button"><button class="button">Delete</button></a>
+                <a href="{{ route('delete_addres',['deleteaddres'=>$row->id]) }}" class="button"><button class="button">Delete</button></a>
             </td>
         </tr>
     @endforeach

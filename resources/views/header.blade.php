@@ -1,3 +1,8 @@
+@session('message')
+    <script>
+        window.alert('{{ session("message") }}')
+    </script>
+@endsession 
 <header>
     <div>
         <img src="{{ asset('storage/img_example/') }}" alt="">

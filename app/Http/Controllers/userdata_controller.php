@@ -74,4 +74,8 @@ class userdata_controller extends Controller
         $editaddres->update($formedit);
         return redirect()->route('view_addres')->with('message','Edit address successful');
     }
+    public function f_delete_addres(address $deleteaddres){
+        $deleteaddres->delete();
+        return redirect()->route('view_addres')->with('message','Delete addres successful!');
+    }
 }

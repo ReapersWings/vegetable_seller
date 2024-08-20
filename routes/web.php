@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\cart_controller;
 use App\Http\Controllers\product_controller;
 use App\Http\Controllers\user_controller;
 use App\Http\Controllers\userdata_controller;
@@ -22,15 +23,18 @@ Route::controller(userdata_controller::class)->group(function(){
     Route::get('/view_addres','addres')->name('view_addres')->middleware(check_verify_email::class);
     Route::get('/add_addres','add_addres')->name('add_addres')->middleware(check_verify_email::class);
     Route::get('/edit_addres/{editaddres}','edit_addres')->name('edit_addres')->middleware(check_verify_email::class);
+    Route::get('/delete_addres/{deleteaddres}','f_delete_addres')->name('delete_addres')->middleware(check_verify_email::class);
 
     Route::post('/edit_addres/{editaddres}','f_edit_addres')->name('f_edit_addres')->middleware(check_verify_email::class);
     Route::post('/userdata','f_edit')->name('f_edit')->middleware(check_verify_email::class);
     Route::post('/add_addres','f_add_addres')->name('f_add_addres')->middleware(check_verify_email::class);
-    Route::post('/delete_addres','f_delete_addres')->name('delete_addres')->middleware(check_verify_email::class);
 });
 Route::controller(product_controller::class)->group(function(){
     Route::get('/add_product','add_product');
     Route::get('/view_product_data/{data}','view_product')->name('product_data');
     Route::post('/f_add_product','f_add_product')->name('f_add_product');
     
+});
+Route::controller(cart_controller::class)->group(function(){
+    Route::post('/add_cart','f_add_cart')->name('f_add_cart');
 });
