@@ -50,7 +50,4 @@ class User extends Authenticatable
     public function u_carts(){
         return $this->hasMany(carts::class);
     }
-    public function u_checkouts(){
-        return $this->hasMany(checkouts::class);
-    }
 }

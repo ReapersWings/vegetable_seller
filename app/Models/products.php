@@ -12,7 +12,4 @@ class products extends Model
     public function p_carts(){
         return $this->hasMany(carts::class);
     }
-    public function p_checkouts(){
-        return $this->hasMany(checkouts::class);
-    }
 }

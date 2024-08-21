@@ -36,7 +36,8 @@ Route::controller(product_controller::class)->group(function(){
     
 });
 Route::controller(cart_controller::class)->group(function(){
-    Route::get('/cart','view_cart')->name('cart');
-    Route::post('/add_cart','f_add_cart')->name('f_add_cart');
+    Route::get('/cart','view_cart')->name('cart')->middleware(check_auth::class);
+    Route::post('/add_cart','f_add_cart')->name('f_add_cart')->middleware(check_auth::class);
+    Route::post('/checkout','f_checkout')->name('f_checkout')->middleware(check_auth::class);
 
 });

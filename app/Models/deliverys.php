@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class deliverys extends Model
 {
     use HasFactory;
-    public function d_checkout(){
-        return $this->belongsTo(checkouts::class,'checkout_id');
+    protected $fillable =['checjouts_id','addres_id','d_state'];
+    public function d_cart(){
+        return $this->belongsTo(carts::class,'checkout_id');
     }
     public function d_addres(){
         return $this->belongsTo(address::class,'id');

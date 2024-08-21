@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pickups', function (Blueprint $table) {
+        Schema::create('deliverys', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('checjouts_id')->constrained('checkouts')->onDelete('cascade');
-            $table->string('c_token_pick_up');
+            $table->foreignId('checjouts_id')->constrained('carts','checkout_id')->onDelete('cascade');
+            $table->foreignId('addres_id')->constrained('address','id')->onDelete('cascade');
+            $table->enum('d_state',['be_ready','on_the_way','successful']);
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pickups');
+        Schema::dropIfExists('deliverys');
     }
 };
