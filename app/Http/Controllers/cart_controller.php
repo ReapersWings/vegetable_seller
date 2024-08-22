@@ -6,6 +6,7 @@ use App\Models\address;
 use App\Models\carts;
 use App\Models\deliverys;
 use App\Models\pickups;
+use App\Models\products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -40,7 +41,7 @@ class cart_controller extends Controller
         
     }
     public function f_checkout(Request $request){
-        $random= rand(1000000,9999999);
+        $random= rand(000000001,999999999);
         if (!$request->addres) {
             return redirect()->route('view_addres')->with('message','please insert your addres!');
         }
@@ -48,14 +49,17 @@ class cart_controller extends Controller
         $createquerys=[];
         for ($i=0; $i <= $request->submit; $i++) { 
             if ($request->input('selectcheckout'.$i)) {
+                $id=explode(':',$request->input('selectcheckout'.$i));
+                //dd($id);
                 $createquerys+=[
                     'checkout_id'=>$random,
                     'c_state'=>'checkout',
                     'c_quantity'=>$request->input("quantity".$i),
                     'c_total_price'=>$request->input("price".$i)
                 ];
-                carts::where('id','=',$request->input('selectcheckout'.$i))->update($createquerys);
-            }
+                carts::where('carts_id','=',$id[0])->update($createquerys);
+                products::where('id','=',$id[1])->update(['p_total_quantity'=>$id[2] - $request->input("quantity".$i)]);
+            }   
         }
         if ($createquerys) {         
             if ($request->checkout === "delivery") {

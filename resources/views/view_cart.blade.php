@@ -15,7 +15,7 @@
     @for ($i = 0; $i < count($row); $i++)
         <div class="div">
             <div class="selectcheckout">
-                <input type="checkbox" style="margin: 44%" name="{{ 'selectcheckout'.$i }}" value="{{ $row[$i]['id'] }}" id="" >
+                <input type="checkbox" style="margin: 44%" name="{{ 'selectcheckout'.$i }}" value="{{ $row[$i]['carts_id'] }}:{{ $row[$i]['id'] }}:{{ $row[$i]['p_total_quantity'] }}" id="" >
             </div>
                 <img src="{{ asset('storage/'.$row[$i]['image']) }}" class="img" alt="">
                 <div class="data">
@@ -37,8 +37,10 @@
 </div>
 <div id="hidden">
     <select name="addres" id="">
-    <option value="">--Not addres--</option>
-    @if ($addres[0])
+    
+    @if (count($addres[0])===0)
+        <option value="">--Not addres--</option>
+    @else
         @foreach ($addres[0] as $row)
             <option value="{{ $row->id }}">{{ $row->name_location }}</option>
         @endforeach

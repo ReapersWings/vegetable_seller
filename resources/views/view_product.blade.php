@@ -7,7 +7,7 @@
     <p><b>RM{{ $data->p_price }}</b>/kg</p>
     <form action="{{ route('f_add_cart') }}" method="post">
         @csrf
-        <input type="number" min="100" step="0.50" name="c_quantity" min="0" value="1000">G<br>
+        <input type="number" min="100" step="100" name="c_quantity" min="0" value="1000">G<br>
         @error('c_quantity')
             <p>{{ $message }}</p>
         @enderror

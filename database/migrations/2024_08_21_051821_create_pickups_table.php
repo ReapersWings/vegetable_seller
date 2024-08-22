@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pickups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('checjouts_id')->constrained('carts','checkout_id')->onDelete('cascade');
+            $table->integer('checjouts_id');//->constrained('carts','checkout_id')->onDelete('cascade');
             $table->string('c_token_pick_up');
             $table->timestamps();
         });
