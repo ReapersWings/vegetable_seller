@@ -72,9 +72,8 @@ class cart_controller extends Controller
         }
 
     }
-    public function f_delete_cart(products $products){
-        dd($products);
-        $products->update(['c_state'=>'delete']);
+    public function f_delete_cart($products){
+        carts::where('carts_id','=',$products)->update(['c_state'=>'delete']);
         return back()->with('message','Delete successful!');
     }
 }
