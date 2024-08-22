@@ -72,4 +72,9 @@ class cart_controller extends Controller
         }
 
     }
+    public function f_delete_cart(products $products){
+        dd($products);
+        $products->update(['c_state'=>'delete']);
+        return back()->with('message','Delete successful!');
+    }
 }
