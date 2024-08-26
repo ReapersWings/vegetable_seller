@@ -4,13 +4,32 @@
         <thead>
             <th>Preparing</th>
         </thead>
-        @foreach ($preparing as $row)
+        @php
+            $id = "";
+            
+            $row=$preparing[0] ;
+            //dd($row);
+        @endphp
+        @for ($i = 0; $i < count($row); $i++)
+        @php
+            $id = $row[$i]['checjouts_id'];
+        @endphp
+        @if ($row[$i]['checjouts_id']===$id)
             <tr>
                 <td>
-
+                    <h5 class="text">{{ $row[$i]['checjouts_id'] }}</h5>
+                    <p class="text">{{ $row[$i]['name_location'] }}</p>
+                    @for ($ii = 0; $ii < count($row); $ii++)
+                        @if ($row[$ii]['checjouts_id']===$id)
+                            <p class="text">{{ $row[$ii]['p_name'] }}</p>
+                        @endif    
+                        
+                    @endfor
                 </td>
             </tr>
-        @endforeach
+        @endif
+
+        @endfor
     </table>
     <table>
         <thead>
@@ -37,4 +56,12 @@
         @endforeach
         <tr></tr>
     </table>
+    <style>
+        .text{
+            margin:0px;
+        }
+        td{
+            border: 2px solid black;
+        }
+    </style>
 @endsection

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\cart_controller;
+use App\Http\Controllers\delivery_controller;
 use App\Http\Controllers\product_controller;
 use App\Http\Controllers\user_controller;
 use App\Http\Controllers\userdata_controller;
@@ -40,4 +41,7 @@ Route::controller(cart_controller::class)->group(function(){
     Route::post('/add_cart','f_add_cart')->name('f_add_cart')->middleware(check_auth::class);
     Route::post('/checkout','f_checkout')->name('f_checkout')->middleware(check_auth::class);
     Route::get('/delete_cart/{products}','f_delete_cart')->name('f_delete_cart');
+});
+Route::controller(delivery_controller::class)->group(function(){
+   Route::get('/view_delivery','view_delivery')->name('delivery');
 });

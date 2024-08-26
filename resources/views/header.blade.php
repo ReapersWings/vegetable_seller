@@ -10,6 +10,7 @@
         <a href="{{ route('cart') }}"><button>Cart</button></a>
         @auth
             <P><a href="{{ route('userdata') }}">{{ auth()->user()->name }}</a></P>
+            <p><a href="{{ route('delivery') }}"><button>Delivery</button></a></p>
             <a href="{{ route('logout') }}"><button>Logout</button></a>
         @else
             <a href="{{ route('login') }}"><button>Login</button></a>
