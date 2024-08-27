@@ -44,4 +44,5 @@ Route::controller(cart_controller::class)->group(function(){
 });
 Route::controller(delivery_controller::class)->group(function(){
    Route::get('/view_delivery','view_delivery')->name('delivery');
+   Route::post('/successful_delivery','f_delivery')->name('f_delivery');
 });

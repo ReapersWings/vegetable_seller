@@ -41,13 +41,16 @@ class cart_controller extends Controller
         
     }
     public function f_checkout(Request $request){
+        if ($request->submit < 0) {
+            return back()->with('message','please add product to cart!');
+        }
         $random= rand(000000001,999999999);
         if (!$request->addres) {
             return redirect()->route('view_addres')->with('message','please insert your addres!');
         }
         
         $createquerys=[];
-        for ($i=0; $i <= $request->submit; $i++) { 
+        for ($i=0; $i <= $request->submit; $i++) {
             if ($request->input('selectcheckout'.$i)) {
                 $id=explode(':',$request->input('selectcheckout'.$i));
                 //dd($id);
@@ -57,7 +60,7 @@ class cart_controller extends Controller
                     'c_quantity'=>$request->input("quantity".$i),
                     'c_total_price'=>$request->input("price".$i)
                 ];
-                carts::where('carts_id','=',$id[0])->update($createquerys);
+                carts::where('c_id','=',$id[0])->update($createquerys);
                 products::where('id','=',$id[1])->update(['p_total_quantity'=>$id[2] - $request->input("quantity".$i)]);
             }   
         }
@@ -70,7 +73,7 @@ class cart_controller extends Controller
                 return back()->with('message','check out successful please pick up at between the date!');
             }
         }
-
+        return back()->with('message','Please select product your need to buy from your cart');
     }
     public function f_delete_cart($products){
         carts::where('carts_id','=',$products)->update(['c_state'=>'delete']);

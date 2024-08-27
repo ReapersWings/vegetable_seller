@@ -15,7 +15,7 @@
     @for ($i = 0; $i < count($row); $i++)
         <div class="div">
             <div class="selectcheckout">
-                <input type="checkbox" style="margin: 44%" name="{{ 'selectcheckout'.$i }}" value="{{ $row[$i]['carts_id'] }}:{{ $row[$i]['id'] }}:{{ $row[$i]['p_total_quantity'] }}" id="" >
+                <input type="checkbox" style="margin: 44%" name="{{ 'selectcheckout'.$i }}" value="{{ $row[$i]['c_id'] }}:{{ $row[$i]['id'] }}:{{ $row[$i]['p_total_quantity'] }}" id="" >
             </div>
                 <img src="{{ asset('storage/'.$row[$i]['image']) }}" class="img" alt="">
                 <div class="data">
@@ -24,7 +24,7 @@
                     <input type="number" min="100" step="100" value="{{ $row[$i]['c_quantity'] }}" name="{{ "quantity".$i }}" max="{{ $row[$i]['p_total_quantity'] }}" id="{{ "quantity".$i }}" oninput="calculate({{ $row[$i]['p_price']}},'{{ 'quantity'.$i }}','{{'price'.$i }}')">KG<br>
                     <label for="">Total Price: RM</label>
                     <input type="number"  min="0.00" value="{{ $row[$i]['p_price'] }}" name="{{ "price".$i }}" id="{{ "price".$i }}" readonly><br>
-                    <a href="{{ route('f_delete_cart',$row[$i]['carts_id']) }}"><button type="button">Delete</button></a>
+                    <a href="{{ route('f_delete_cart',$row[$i]['c_id']) }}"><button type="button">Delete</button></a>
                 </div>
             </div>
     @endfor 
