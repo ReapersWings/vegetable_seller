@@ -4,7 +4,6 @@
         $row=$preparing[0] ;
     @endphp
     @if (count($preparing[0]) === 0 && count($ontheway[0]) === 0)
-        
     @else
         <table class="table">
             <thead>
@@ -20,15 +19,21 @@
         </table>
     @endif
     <style>
+        th{
+            background-color:grey
+        }
         .text{
             margin:0px;
+            text-align: center;
         }
         table,td{
             border: 2px solid black;
             border-collapse: collapse;
         }
         button.product{
-            width: 100%;
+            width: 50%;
+            float: right;
+            border-radius: 15px;
         }
         table.table{
             width: 50%;

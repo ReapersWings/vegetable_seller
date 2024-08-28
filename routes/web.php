@@ -36,13 +36,18 @@ Route::controller(product_controller::class)->group(function(){
     Route::post('/f_add_product','f_add_product')->name('f_add_product');
     
 });
-Route::controller(cart_controller::class)->group(function(){
-    Route::get('/cart','view_cart')->name('cart')->middleware(check_auth::class);
-    Route::post('/add_cart','f_add_cart')->name('f_add_cart')->middleware(check_auth::class);
-    Route::post('/checkout','f_checkout')->name('f_checkout')->middleware(check_auth::class);
-    Route::get('/delete_cart/{products}','f_delete_cart')->name('f_delete_cart');
+Route::middleware(check_auth::class)->group(function(){
+    Route::controller(cart_controller::class)->group(function(){
+        Route::get('/cart','view_cart')->name('cart');
+        Route::get('/delete_cart/{products}','f_delete_cart')->name('f_delete_cart');
+        Route::post('/add_cart','f_add_cart')->name('f_add_cart');
+        Route::post('/checkout','f_checkout')->name('f_checkout');
+    });
+    Route::controller(delivery_controller::class)->group(function(){
+        Route::get('/view_delivery','view_delivery')->name('delivery');
+        Route::get('/view_product_delivery/{id}','view_delivery_product')->name('view_product_delivery');
+        Route::post('/successful_delivery','f_delivery')->name('f_delivery');
+
+    });
 });
-Route::controller(delivery_controller::class)->group(function(){
-   Route::get('/view_delivery','view_delivery')->name('delivery');
-   Route::post('/successful_delivery','f_delivery')->name('f_delivery');
-});
+

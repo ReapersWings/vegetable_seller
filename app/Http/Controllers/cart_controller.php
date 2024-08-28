@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\email_pickup;
 use App\Models\address;
 use App\Models\carts;
 use App\Models\deliverys;
@@ -9,6 +10,7 @@ use App\Models\pickups;
 use App\Models\products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class cart_controller extends Controller
@@ -53,8 +55,7 @@ class cart_controller extends Controller
         for ($i=0; $i <= $request->submit; $i++) {
             if ($request->input('selectcheckout'.$i)) {
                 $id=explode(':',$request->input('selectcheckout'.$i));
-                //dd($id);
-                $createquerys+=[
+                $createquerys=[
                     'checkout_id'=>$random,
                     'c_state'=>'checkout',
                     'c_quantity'=>$request->input("quantity".$i),
@@ -69,7 +70,11 @@ class cart_controller extends Controller
                     deliverys::create(['checjouts_id'=>$random , 'addres_id'=>$request->addres , 'd_state'=>'be_ready']);
                     return back()->with('message','check out successful delivery is be prepare now!');          
             }else{
-                pickups::created(['checjouts_id'=>$random , 'c_token_pick_up'=>Str::random(6)]);
+                $token= Str::random(6);
+                pickups::create(['checjouts_id'=>$random , 'c_token_pick_up'=>$token]);
+                $data = carts::join('products','carts.product_id','=','products.id')->where('checkout_id',$random)->get();
+                //dd($data);
+                Mail::to(Auth::user()->email)->send(new email_pickup($token , $data));
                 return back()->with('message','check out successful please pick up at between the date!');
             }
         }

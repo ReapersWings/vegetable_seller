@@ -18,7 +18,10 @@ class delivery_controller extends Controller
         ]);
     }
     public function view_delivery_product($id){
-        $data=carts::join('products','carts.product_id','=','products.id')->where('carts_id','$id')->get();
+        $data=deliverys::join('carts','deliverys.checjouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('c_id',$id)->get();
+        return view('delivery_product',[
+            'data'=>$data
+        ]);
     }
     public function f_delivery(Request $request){
         deliverys::where('checjouts_id',$request->submit)->where('d_state','on_the_way')->update(['d_state'=>'successful']);

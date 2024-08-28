@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products','id')->onDelete('cascade');
             $table->enum('c_state',['delete','at_cart','checkout']);
             $table->integer('c_quantity');
-            $table->string('c_total_price')->nullable();
+            $table->double('c_total_price')->nullable();
             $table->timestamps();
         });
     }
