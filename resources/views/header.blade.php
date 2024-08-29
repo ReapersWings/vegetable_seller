@@ -4,25 +4,26 @@
     </script>
 @endsession 
 <header>
-    <div>
-        <div style="float: left;width:33.33%">
+        <div style="float: left;width:30%">
             <img src="{{ asset('storage/images/') }}" alt="">
             <a href="{{ route('main') }}"><button>Vegetable seller</button></a>
         </div>
-        
-        <div style="float: right;width:33.33%;text-align:right;margin:0px">
+        <div style="float: right;width:30%;text-align:right;margin:0px">
             @auth
-                <a href="{{ route('cart') }}"><button>Cart</button></a>
-                <a href="{{ route('userdata') }}">{{ auth()->user()->name }}</a>
-                <a href="{{ route('delivery') }}"><button>Delivery</button></a>
-                <a href="{{ route('logout') }}"><button>Logout</button></a>
+            <div class="profileselect">
+                {{ auth()->user()->name }}
+                <div class="profile">
+                    <a class="a" href="{{ route('userdata') }}"><button>Profile</button></a><br>
+                    <a class="a" href="{{ route('cart') }}"><button>Cart</button></a><br>
+                    <a class="a" href="{{ route('delivery') }}"><button>Delivery</button></a><br>
+                    <a class="a" href="{{ route('logout') }}"><button>Logout</button></a><br>
+                </div>
+            </div>
+                
             @else
                 <a href="{{ route('login') }}"><button>Login</button></a>
             @endauth
-        </div>
-        
-    </div>
-    
+        </div>   
 </header>
 <div id="content">
     @yield('content')
@@ -34,14 +35,49 @@
     <p></p>
 </footer>
 <style>
+    .a>button{
+        width:95%;
+        border-radius: 25px;
+    }
+    .profileselect{
+        overflow-y:unset;
+        position: relative;
+        background: gray;
+        border: 2px solid black;
+        z-index: 2;
+        height: 40%;
+        text-align: center;
+        border-radius: 25px;
+    }
+    .profileselect:hover .profile{
+        display: block;
+    }
+    .profile{
+        padding: 5px;
+        overflow-y:unset;
+        position:absolute;
+        color: black;
+        display: none;
+        background-color: white;
+        border: 2px solid black;
+        width: 97%;
+        z-index: 100;
+        border-radius: 25px;
+    }
+    .profile:hover{
+        display: block;
+    }
+
     header,footer{
         border: 2px solid black;
         margin: 0px;
-        background-color: white;
-        
+        background-color: white;    
     }
     header{
-        overflow: auto;
+        height: 7% ;
+        z-index:1;
+        position: relative;
+
     }
     body{
         margin: 0px;
