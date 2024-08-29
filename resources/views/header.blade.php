@@ -5,16 +5,22 @@
 @endsession 
 <header>
     <div>
-        <img src="{{ asset('storage/img_example/') }}" alt="">
-        <a href="{{ route('main') }}"><button>Vegetable seller</button></a>
-        <a href="{{ route('cart') }}"><button>Cart</button></a>
-        @auth
-            <P><a href="{{ route('userdata') }}">{{ auth()->user()->name }}</a></P>
-            <p><a href="{{ route('delivery') }}"><button>Delivery</button></a></p>
-            <a href="{{ route('logout') }}"><button>Logout</button></a>
-        @else
-            <a href="{{ route('login') }}"><button>Login</button></a>
-        @endauth
+        <div style="float: left;width:33.33%">
+            <img src="{{ asset('storage/images/') }}" alt="">
+            <a href="{{ route('main') }}"><button>Vegetable seller</button></a>
+        </div>
+        
+        <div style="float: right;width:33.33%;text-align:right;margin:0px">
+            @auth
+                <a href="{{ route('cart') }}"><button>Cart</button></a>
+                <a href="{{ route('userdata') }}">{{ auth()->user()->name }}</a>
+                <a href="{{ route('delivery') }}"><button>Delivery</button></a>
+                <a href="{{ route('logout') }}"><button>Logout</button></a>
+            @else
+                <a href="{{ route('login') }}"><button>Login</button></a>
+            @endauth
+        </div>
+        
     </div>
     
 </header>
@@ -31,7 +37,11 @@
     header,footer{
         border: 2px solid black;
         margin: 0px;
-        background-color: white
+        background-color: white;
+        
+    }
+    header{
+        overflow: auto;
     }
     body{
         margin: 0px;

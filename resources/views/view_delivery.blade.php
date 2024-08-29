@@ -32,7 +32,7 @@
         }
         button.product{
             width: 50%;
-            float: right;
+            float: left;
             border-radius: 15px;
         }
         table.table{

@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('pickups', function (Blueprint $table) {
             $table->id();
-            $table->integer('checjouts_id');//->constrained('carts','checkout_id')->onDelete('cascade');
+            $table->integer('checkouts_id');//->constrained('carts','checkout_id')->onDelete('cascade');
             $table->string('c_token_pick_up');
+            $table->dateTime('p_expire_date')->nullable();
+            $table->enum('p_state',['readying','successful']);
             $table->timestamps();
         });
     }

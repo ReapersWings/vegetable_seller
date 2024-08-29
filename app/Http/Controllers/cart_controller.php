@@ -67,12 +67,12 @@ class cart_controller extends Controller
         }
         if ($createquerys) {         
             if ($request->checkout === "delivery") {
-                    deliverys::create(['checjouts_id'=>$random , 'addres_id'=>$request->addres , 'd_state'=>'be_ready']);
+                    deliverys::create(['checkouts_id'=>$random , 'addres_id'=>$request->addres , 'd_state'=>'be_ready']);
                     return back()->with('message','check out successful delivery is be prepare now!');          
             }else{
                 $token= Str::random(6);
-                pickups::create(['checjouts_id'=>$random , 'c_token_pick_up'=>$token]);
-                $data = carts::join('products','carts.product_id','=','products.id')->where('checkout_id',$random)->get();
+                pickups::create(['checkouts_id'=>$random , 'c_token_pick_up'=>$token , 'p_expire_date'=>date('Y-m-d H:i:s' , strtotime('+8 days')) , 'p_state'=>'readying']);
+                $data = pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('user_id',Auth::id())->where('p_state','readying')->where('checkouts_id',$random)->get();
                 //dd($data);
                 Mail::to(Auth::user()->email)->send(new email_pickup($token , $data));
                 return back()->with('message','check out successful please pick up at between the date!');

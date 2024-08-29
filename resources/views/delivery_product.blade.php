@@ -1,7 +1,12 @@
 @extends('header')
 @section('content')
     @php
-        $row=$data[0]
+        $row=$data[0] ;
+        if ($type === 'delivery') {
+            $state = $row->d_state ;
+        }else{
+            $state = 'pickup';
+        }
     @endphp
     <h1 style="text-align: center"><ins>Data product you buy</ins></h1>
     <a href="{{ route('product_data',$row->product_id) }}"><button style="width:46%;float:left;padding:25px">
@@ -14,15 +19,18 @@
         <h2 class="data"><b><ins>Data product for you:</ins></b></h2>
         <h3 class="data">Your Quantity: <b>{{ $row->c_quantity }}G</b></h3>
         <h3 class="data">Total price: <b>RM{{ $row->c_total_price }}</b></h3>
-        @switch($row->d_state)
+        @switch($state)
             @case('be_ready')
                 <h1 class="data"><b>Preparing</b></h1>
                 @break
             @case('on_the_way')
                 <h1 class="data"><b>On The Way</b></h1>
                 @break
-            @default
+            @case('successful')
                 <h1 class="data"><b>Successful</b></h1>
+                @break
+            @default
+                <h1 class="data"><b>Pick Up</b></h1>
         @endswitch
     </div>
     <style>
