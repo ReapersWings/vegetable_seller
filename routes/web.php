@@ -15,10 +15,17 @@ Route::controller(user_controller::class)->group(function(){
     Route::get('/login','login')->name('login');
     Route::get('/register','register')->name('register');
     Route::get('/verify','verify')->name('verify')->middleware(check_auth::class);
-    Route::post('/login','f_login')->name('f_login');
-    Route::post('/register','f_register')->name('f_register');
-    Route::post('/verify','f_verify')->name('f_verify')->middleware(check_auth::class);
     Route::get('/send_verify','send_email')->name('send_token')->middleware(check_auth::class);
+    Route::get('/inputemail','inputemail')->name('inputemail');
+    Route::get('/verifyemail','verify_email')->name('verifyemail');
+    Route::get('/reset_password','reset_password')->name('reset_password');
+
+    Route::post('/f_login','f_login')->name('f_login');
+    Route::post('/f_register','f_register')->name('f_register');
+    Route::post('/f_verify','f_verify')->name('f_verify')->middleware(check_auth::class);
+    Route::post('/f_inputemail','f_inputemail')->name('f_inputemail');
+    Route::post('f_verifyemail','f_verify_email')->name('f_verify_email');
+    Route::post('f_reset_password','f_reset_password')->name('f_reset_password');
 });
 Route::controller(userdata_controller::class)->group(function(){
     Route::get('/userdata','userdata')->name('userdata')->middleware(check_verify_email::class);

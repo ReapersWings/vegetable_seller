@@ -26,6 +26,15 @@ class user_controller extends Controller
     public function register(){
         return view('register');
     }
+    public function inputemail(){
+        return view('insert_email');
+    }
+    public function verify_email(){
+        return view('verify_email');
+    }
+    public function reset_password(){
+        return view('reset_password');
+    }
     public function main(){
         return view('main',[
             'data'=>products::where("p_total_quantity",">","0")->paginate(8)
@@ -86,6 +95,38 @@ class user_controller extends Controller
         password_reset_tokens::create($insert);
         Mail::to(Auth::user()->email)->send(new emailverify($insert));
         return redirect()->route('verify')->with('message','Verify the token');
+    }
+    public function f_inputemail(Request $request){
+        $token= Str::random(6);
+        $expire= date('Y-m-d H:i:s' , strtotime('+5 Minutes'));
+        $insert=[
+            'email'=>Auth::user()->email,
+            'token'=>$token,
+            'expire_date'=>$expire
+        ];
+        password_reset_tokens::create($insert);
+        Mail::to($request->email)->send(new emailverify($insert));
+        return redirect()->route('verifyemail')->with('message','please verify your email')->with('email','$request->email');
+    }
+    public function f_verify_email(Request $request){
+        $data=password_reset_tokens::where('email','=',$request->email)->where('expire_date','>','NOW()');
+        if ($email=$data->get()->first()) {
+            if ($email['token']===$request->token) {
+                User::where('email',$request->email)->update(['email_verified_at'=>new DateTime('now')]);
+                return redirect()->route('reset_password')->with('message','please Reset your password')->with('email','$request->email');
+            }else{
+                return redirect()->route('verify_email')->with('message','Verify Failed');
+            }           
+        }else{
+            return redirect()->route('verify_email')->with('message','this token have been expire or not have please send email one more!');
+        }
+    }
+    public function f_reset_password(Request $request){
+        $request->validate([
+            'password'=>'required|confirmed'
+        ]);
+        User::where('email',$request->email)->update('password',$request->password);
+        return redirect()->name('login')->with('message','Reset password successful');
     }
     //$ git commit -m 'version'
     // git push -u origin main

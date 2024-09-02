@@ -1,14 +1,13 @@
 @extends('form_header')
 @section('content')
-@if (session()->has('message'))
-    <script>window.alert({{ session('message') }})</script>
-@endif
-<form action="{{ route('f_verify') }}" method="POST">
+<form action="{{ route('f_verify_email') }}" method="POST">
     @csrf
     <label for="">Email Verify:</label>
     <input type="text" name="token">
-    <a type="button" id="a" href="javascript:void(0);">Send_token</a>
-    <input type="submit" id="submit">
+    <button type="submit" value="{{ session('email') }}" name="email" id="submit" >Submit</button>
+</form>
+<form action="{{ route('f_inputemail') }}" method="post">
+    <a href="javascript:void(0);" id="a" type="submit" name="email" value="{{ session('email') }}">Resend Email</a>
 </form>
 <style>
     a{
@@ -22,7 +21,7 @@
     setInterval(function hide(){
         if (calculate === 5) {
             if (button === 0) {
-                document.getElementById('a').href = "{{ route('f_inputemail') }}"
+                document.getElementById('a').href = "{{ route('send_token') }}"
                 document.getElementById('a').style.color='black'
                 button+=1
             } else {
