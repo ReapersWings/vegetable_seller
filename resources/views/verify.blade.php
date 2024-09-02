@@ -23,9 +23,11 @@
         if (calculate === 5) {
             if (button === 0) {
                 document.getElementById('a').href = "{{ route('send_token') }}"
+                document.getElementById('a').style.color='black'
                 button+=1
             } else {
                 document.getElementById('a').href = 'javascript:void(0);'
+                document.getElementById('a').style.color='grey'
                 button-=1
             }
             calculate -= 4
