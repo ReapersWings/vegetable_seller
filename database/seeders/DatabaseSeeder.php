@@ -19,13 +19,11 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
-            'email_verify_token'=>'123456'
+            'email' => 'test@example.com'
         ]);
-        User::create([
+        /*User::create([
             'name'=>'a',
             'email'=>'ooi98872@gmail.com',
-            'email_verify_token'=>'910459',
             'email_verified_at'=>'2024-08-22 02:43:09',
             'password'=>'1'
         ]);
@@ -37,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'city'=>'Butterworth',
             'state'=>'Peneng',
             'post_code'=>'13500'
-        ]);
+        ]);*/
         products::create([
             'image'=>'images/IbDYCSK525TOOBHA7UgTQJYG5ApCY3LTeqSusUze.jpg',
             'p_name'=>'test',

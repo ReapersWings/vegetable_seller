@@ -8,6 +8,8 @@
 </head>
 <body>
     <h1>Email Verify</h1>
-    <p>{{ $data['email_verify_token'] }}</p>
+    <p>{{ $data['token'] }}</p>
+    <h2>Date Expire:</h2>
+    <h3>{{ $data['expire_date'] }}</h3>
 </body>
 </html> 

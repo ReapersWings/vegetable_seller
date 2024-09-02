@@ -6,6 +6,20 @@
 <div>
     @yield('content')
 </div>
+<script>
+    let submit_button_hide = 0
+    document.getElementById('submit').onclick = submit_button_hide()
+    function submit_button_hide(){
+        if (submit_button_hide === 0 ) {
+            document.getElementById('submit').type='hidden'
+            submit_button_hide ++
+        } else {
+            document.getElementById('submit').type='submit'
+            submit_button_hide --
+        }
+        setTimeout(submit_button_hide(), 30000);
+    }
+</script>
 <style>
     body{
         background-color: aquamarine;
@@ -27,6 +41,7 @@
     }
     label{
         float: left;
+        width: 40%;
     }
     #submit{
         width: 80%;

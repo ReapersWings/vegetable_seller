@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\emailverify;
+use App\Models\password_reset_tokens;
 use App\Models\products;
 use App\Models\User;
 use DateTime;
@@ -11,7 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
+date_default_timezone_set("Asia/Kuala_Lumpur");
 class user_controller extends Controller
 {
     public function verify(){
@@ -29,14 +32,17 @@ class user_controller extends Controller
         ]);
     }
     public function f_verify(Request $request){
-        $data=User::where('email','=',Auth::user()->email);
-        $email=$data->get()->first();
+        $data=password_reset_tokens::where('email','=',Auth::user()->email)->where('expire_date','>','NOW()');
         //dd($email);
-        if ($email['email_verify_token'] === $request->token) {
-            $data->update(['email_verified_at'=>new DateTime('now')]);
-            return redirect()->route('main')->with('message','Verify successful!');
+        if ($email=$data->get()->first()) {
+            if ($email['token']===$request->token) {
+                User::where('email',Auth::user()->email)->update(['email_verified_at'=>new DateTime('now')]);
+                return redirect()->route('main')->with('message','Verify successful!');
+            }else{
+                return redirect()->route('verify')->with('message','Verify Failed');
+            }           
         }else{
-            return redirect()->route('verify')->with('message','Verify Failed');
+            return redirect()->route('send_token');
         }
     }
     public function f_register(Request $request){
@@ -45,10 +51,9 @@ class user_controller extends Controller
             'password'=>'required|confirmed',
             'email'=>['required',Rule::unique('users','email')]
         ]);
-        $formregister['email_verify_token']=rand(100000,999999);
         $data=User::create($formregister);
         Auth::login($data);
-        Mail::to($request->email)->send(new emailverify($formregister));
+        
         return redirect()->route('verify')->with('message','please verify your email');
     }
     public function f_login(Request $request){
@@ -58,11 +63,10 @@ class user_controller extends Controller
         ]);
         if (Auth::attempt($formlogin)) {
             if (!Auth::user()->email_verified_at) {
-                return redirect()->route('verify')->with('message','Please verify your email first!');
+                return redirect()->route('send_token');
             }else{
                 return redirect()->route('main')->with('message','login successful');
             }
-            
         }else{
             return redirect()->route('login')->with('message','Login Failed');
         }
@@ -70,6 +74,18 @@ class user_controller extends Controller
     public function f_logout(){
         Auth::logout();
         return redirect()->route('login')->with('message','logout successful!');
+    }
+    public function send_email(){
+        $token= Str::random(6);
+        $expire= date('Y-m-d H:i:s' , strtotime('+5 Minutes'));
+        $insert=[
+            'email'=>Auth::user()->email,
+            'token'=>$token,
+            'expire_date'=>$expire
+        ];
+        password_reset_tokens::create($insert);
+        Mail::to(Auth::user()->email)->send(new emailverify($insert));
+        return redirect()->route('verify')->with('message','Verify the token');
     }
     //$ git commit -m 'version'
     // git push -u origin main

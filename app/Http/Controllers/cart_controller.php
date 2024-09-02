@@ -47,7 +47,7 @@ class cart_controller extends Controller
             return back()->with('message','please add product to cart!');
         }
         $random= rand(000000001,999999999);
-        if (!$request->addres) {
+        if (!$request->addres && $request->checkout === "delivery") {
             return redirect()->route('view_addres')->with('message','please insert your addres!');
         }
         
@@ -62,7 +62,9 @@ class cart_controller extends Controller
                     'c_total_price'=>$request->input("price".$i)
                 ];
                 carts::where('c_id','=',$id[0])->update($createquerys);
-                products::where('id','=',$id[1])->update(['p_total_quantity'=>$id[2] - $request->input("quantity".$i)]);
+                $product = products::where('id','=',$id[1]) ;
+                $getproduct = $product->get();
+                $product->update(['p_total_quantity'=>$getproduct[0]['p_total_quantity'] - $request->input("quantity".$i)]);
             }   
         }
         if ($createquerys) {         

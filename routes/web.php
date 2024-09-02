@@ -17,7 +17,8 @@ Route::controller(user_controller::class)->group(function(){
     Route::get('/verify','verify')->name('verify')->middleware(check_auth::class);
     Route::post('/login','f_login')->name('f_login');
     Route::post('/register','f_register')->name('f_register');
-    Route::post('/verify','f_verify')->name('f_verify');
+    Route::post('/verify','f_verify')->name('f_verify')->middleware(check_auth::class);
+    Route::get('/send_verify','send_email')->name('send_token')->middleware(check_auth::class);
 });
 Route::controller(userdata_controller::class)->group(function(){
     Route::get('/userdata','userdata')->name('userdata')->middleware(check_verify_email::class);
