@@ -55,7 +55,6 @@ Route::middleware(check_auth::class)->group(function(){
         Route::get('/view_delivery','view_delivery')->name('delivery');
         Route::get('/view_product_delivery/{id}:{type}','view_delivery_product')->name('view_product_delivery');
         Route::post('/successful_delivery','f_delivery')->name('f_delivery');
-
     });
 });
 

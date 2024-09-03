@@ -3,21 +3,27 @@
     @php
         $row=$preparing[0] ;
     @endphp
-    @if (count($preparing[0]) === 0 && count($ontheway[0]) === 0)
-    @else
-        <table class="table">
-            <thead>
-                <th>Preparing</th>
-            </thead>
-            <x-display-result :row=$row , data="Not Delivery be preparing!"/>
-        </table>
-        <table class="table">
-            <thead>
-                <th colspan="2">On The Way</th>
-            </thead>
-            <x-display-result :row=$ontheway[0] , data="Not Delivery be on the way!" />
-        </table>
-    @endif
+    <div>
+        <a href="{{ route('delivery') }}">Delivery</a>
+        <a href="{{ route('view_pickup') }}">Pick up</a>
+        <a href="{{ route('history_checkout') }}">History</a>
+        @if (count($preparing[0]) === 0 && count($ontheway[0]) === 0)
+        @else
+            <table class="table">
+                <thead>
+                    <th>Preparing</th>
+                </thead>
+                <x-display-result :row=$row , data="Not Delivery be preparing!"/>
+            </table>
+            <table class="table">
+                <thead>
+                    <th colspan="2">On The Way</th>
+                </thead>
+                <x-display-result :row=$ontheway[0] , data="Not Delivery be on the way!" />
+            </table>
+        @endif
+    </div>
+    
     <style>
         th{
             background-color:grey

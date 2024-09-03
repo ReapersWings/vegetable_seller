@@ -16,7 +16,7 @@
     @error('password')
         <p>{{ $message }}</p>
     @enderror
-    <a href="{{ route('verifyemail') }}">forgot password</a>
+    <a href="{{ route('inputemail') }}">forgot password</a>
     <input type="submit" id="submit">
     <a href="{{ route('register') }}"><button type="button" id="submit">Register</button></a>
 </form> 

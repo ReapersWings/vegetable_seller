@@ -5,6 +5,7 @@
 @endif
 <form action="{{ route('f_verify') }}" method="POST">
     @csrf
+    <h1>Please verify your email</h1>
     <label for="">Email Verify:</label>
     <input type="text" name="token">
     <a type="button" id="a" href="javascript:void(0);">Send_token</a>

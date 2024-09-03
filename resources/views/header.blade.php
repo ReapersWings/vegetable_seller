@@ -32,7 +32,7 @@
 <footer>
     <p><b>Footer</b></p>
     <P>Contect number: 012-3456789</P>
-    <p></p>
+    <p>Location : </p>
 </footer>
 <style>
     .a>button{
