@@ -5,7 +5,7 @@
         if ($type === 'delivery') {
             $state = $row->d_state ;
         }else{
-            $state = 'pickup';
+            $state = $row->p_state;
         }
     @endphp
     <h1 style="text-align: center"><ins>Data product you buy</ins></h1>
@@ -32,6 +32,10 @@
             @default
                 <h1 class="data"><b>Pick Up</b></h1>
         @endswitch
+        @if ($type !== 'delivery')
+            <h1 class="data" style="border:0px;">{{ $row->c_token_pick_up }}</h1>
+            <h2 class="data">Date expire:<b>{{ $row->p_expire_date }}</b></h2>
+        @endif
     </div>
     <style>
         h2.text{

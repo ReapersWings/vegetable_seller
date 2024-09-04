@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(user_controller::class)->group(function(){
     Route::get('/','main')->name('main');
-    Route::get('/logout','f_logout')->name('logout');
+    
     Route::get('/login','login')->name('login');
     Route::get('/register','register')->name('register');
     Route::get('/verify','verify')->name('verify')->middleware(check_auth::class);
@@ -20,6 +20,7 @@ Route::controller(user_controller::class)->group(function(){
     Route::get('/verifyemail','verify_email')->name('verifyemail');
     Route::get('/reset_password','reset_password')->name('reset_password');
 
+    Route::post('/logout','f_logout')->name('logout');
     Route::post('/f_login','f_login')->name('f_login');
     Route::post('/f_register','f_register')->name('f_register');
     Route::post('/f_verify','f_verify')->name('f_verify')->middleware(check_auth::class);
@@ -54,7 +55,10 @@ Route::middleware(check_auth::class)->group(function(){
     Route::controller(delivery_controller::class)->group(function(){
         Route::get('/view_delivery','view_delivery')->name('delivery');
         Route::get('/view_product_delivery/{id}:{type}','view_delivery_product')->name('view_product_delivery');
+        Route::get('/view_pickup','view_pickups')->name('view_pickup');
+        Route::get('/history','history')->name('history');
         Route::post('/successful_delivery','f_delivery')->name('f_delivery');
+
     });
 });
 

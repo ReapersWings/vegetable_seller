@@ -72,6 +72,7 @@ class user_controller extends Controller
             'password'=>'required'
         ]);
         if (Auth::attempt($formlogin)) {
+            $request->session()->regenerate();
             if (!Auth::user()->email_verified_at) {
                 return redirect()->route('send_token');
             }else{
@@ -81,8 +82,10 @@ class user_controller extends Controller
             return redirect()->route('login')->with('message','Login Failed');
         }
     }
-    public function f_logout(){
+    public function f_logout(Request $request){
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('login')->with('message','logout successful!');
     }
     public function send_email(){

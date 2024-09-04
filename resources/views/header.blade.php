@@ -16,7 +16,10 @@
                     <a class="a" href="{{ route('userdata') }}"><button>Profile</button></a><br>
                     <a class="a" href="{{ route('cart') }}"><button>Cart</button></a><br>
                     <a class="a" href="{{ route('delivery') }}"><button>Delivery</button></a><br>
-                    <a class="a" href="{{ route('logout') }}"><button>Logout</button></a><br>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="a" type="submit" >Logout</button>
+                    </form>
                 </div>
             </div>
                 
@@ -35,9 +38,10 @@
     <p>Location : </p>
 </footer>
 <style>
-    .a>button{
+    .a,.a>button{
         width:95%;
         border-radius: 25px;
+        margin-top:2px; 
     }
     .profileselect{
         overflow-y:unset;

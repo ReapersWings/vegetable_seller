@@ -4,9 +4,9 @@
         $row=$preparing[0] ;
     @endphp
     <div>
-        <a href="{{ route('delivery') }}">Delivery</a>
+        <a href="javascript:void(0)">Delivery</a>
         <a href="{{ route('view_pickup') }}">Pick up</a>
-        <a href="{{ route('history_checkout') }}">History</a>
+        <a href="{{ route('history') }}">History</a>
         @if (count($preparing[0]) === 0 && count($ontheway[0]) === 0)
         @else
             <table class="table">
@@ -21,6 +21,10 @@
                 </thead>
                 <x-display-result :row=$ontheway[0] , data="Not Delivery be on the way!" />
             </table>
+            <div>
+                <p style="text-align: center">You need to contect to seller when you need to Refun</p>
+                <p style="text-align: center">012-3456789</p>
+            </div>
         @endif
     </div>
     

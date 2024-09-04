@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Auth;
 class delivery_controller extends Controller
 {
     public function view_pickups(){
-        $data=pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('carts.user_id','=',Auth::id())->where('pickups.p_state','readying')->get();
+        $data=pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('carts.user_id','=',Auth::id())->where('pickups.p_state','readying')->where('pickups.p_expire_date','>','NOW()')->get();
+        //dd($data);
         return view('view_pickup',[
             'data'=>$data
         ]);
     }
     public function view_delivery(){
-        $data = deliverys::join('carts','deliverys.checkouts_id','=','carts.checkout_id')->join('address','deliverys.addres_id','=','address.id')->join('products','carts.product_id','=','products.id')->where('carts.user_id','=',Auth::id())->where('deliverys.d_state','successful') ;
+        $data = deliverys::join('carts','deliverys.checkouts_id','=','carts.checkout_id')->join('address','deliverys.addres_id','=','address.id')->join('products','carts.product_id','=','products.id')->where('carts.user_id','=',Auth::id())  ;
         //dd($data->where('d_state','be_ready')->get());
         return view('view_delivery',[
             'preparing'=>[$data->where('d_state','be_ready')->get()],
@@ -38,5 +39,15 @@ class delivery_controller extends Controller
     public function f_delivery(Request $request){
         deliverys::where('checkouts_id',$request->submit)->where('d_state','on_the_way')->update(['d_state'=>'successful']);
         return back()->with('message','This delivery have been successfull');
+    }
+    public function history(){
+        $delivery=deliverys::join('carts','deliverys.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('deliverys.d_state','successful')->orderBy('deliverys.updated_at','desc')->get();
+        $pickup=pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('pickups.p_state','successful')->orderBy('pickups.updated_at','desc')->get();
+        $cart = carts::join('products','carts.product_id','=','products.id')->where('c_state','delete')->orderBy('carts.updated_at','desc')->get();
+        return view('view_history',[
+            'delivery'=>$delivery,
+            'pickup'=>$pickup,
+            'cart'=>$cart
+        ]);
     }
 }
