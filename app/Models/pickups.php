@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class pickups extends Model
 {
     use HasFactory;
-    protected $fillable=['id','checkouts_id','c_token_pick_up','p_expire_date'];
+    protected $fillable=['id','checkouts_id','c_token_pick_up','p_expire_date','date_user_pickup'];
     public function pu_cart(){
         return $this->belongsTo(carts::class,'checkout_id');
     }

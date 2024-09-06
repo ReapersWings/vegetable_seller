@@ -57,8 +57,9 @@ Route::middleware(check_auth::class)->group(function(){
         Route::get('/view_product_delivery/{id}:{type}','view_delivery_product')->name('view_product_delivery');
         Route::get('/view_pickup','view_pickups')->name('view_pickup');
         Route::get('/history','history')->name('history');
+        Route::get('/view_history_product/{type}','history_product')->name('history_product');
+        Route::get('/components_loop_history_delivery/{type}','history_delivery')->name('history_delivery');
         Route::post('/successful_delivery','f_delivery')->name('f_delivery');
-
     });
 });
 

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com'
         ]);
-        /*User::create([
+        User::create([
             'name'=>'a',
             'email'=>'ooi98872@gmail.com',
             'email_verified_at'=>'2024-08-22 02:43:09',
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'city'=>'Butterworth',
             'state'=>'Peneng',
             'post_code'=>'13500'
-        ]);*/
+        ]);
         products::create([
             'image'=>'images/IbDYCSK525TOOBHA7UgTQJYG5ApCY3LTeqSusUze.jpg',
             'p_name'=>'test',

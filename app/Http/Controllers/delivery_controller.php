@@ -41,13 +41,24 @@ class delivery_controller extends Controller
         return back()->with('message','This delivery have been successfull');
     }
     public function history(){
-        $delivery=deliverys::join('carts','deliverys.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('deliverys.d_state','successful')->orderBy('deliverys.updated_at','desc')->get();
-        $pickup=pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('pickups.p_state','successful')->orderBy('pickups.updated_at','desc')->get();
-        $cart = carts::join('products','carts.product_id','=','products.id')->where('c_state','delete')->orderBy('carts.updated_at','desc')->get();
-        return view('view_history',[
-            'delivery'=>$delivery,
-            'pickup'=>$pickup,
-            'cart'=>$cart
-        ]);
+        return view('view_history');
+    }
+    public function history_product($type){
+
+    }
+    public function history_delivery($type){
+        if ($type === 'deliverys') {
+            $data = deliverys::join('carts','deliverys.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('deliverys.d_state','successful')->join('address','deliverys.addres_id','=','address.id')->orderBy('deliverys.updated_at','desc')->get();
+            $dataoutput = view('components.loop_history_delivery',['deliverys'=>$data])->render();
+            return response()->json(['data'=>$dataoutput]);
+        }elseif ($type ==='pickups') {
+            $data = pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('pickups.p_state','successful')->orderBy('pickups.updated_at','desc')->get();
+            $dataoutput = view('components.loop_history_pickup',['pickups'=>$data])->render();
+            return response()->json(['data'=>$dataoutput]);
+        }else{
+            $data =carts::join('products','carts.product_id','=','products.id')->where('c_state','delete')->orderBy('carts.updated_at','desc')->get();
+            $dataoutput = view('components.loop_history_carts',['carts'=>$data])->render();
+            return response()->json(['data'=>$dataoutput]);
+        }
     }
 }

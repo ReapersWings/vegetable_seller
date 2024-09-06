@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('checkouts_id');//->constrained('carts','checkout_id')->onDelete('cascade');
             $table->string('c_token_pick_up');
             $table->dateTime('p_expire_date')->nullable();
+            $table->dateTime('date_user_pickup')->nullable();
             $table->enum('p_state',['readying','successful']);
             $table->timestamps();
         });
