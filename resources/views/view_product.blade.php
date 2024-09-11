@@ -10,7 +10,8 @@
         @csrf
         <!-- Weight adjustment buttons -->
         <div class="weight-controls">
-            <button type="button" class="adjust-button" onclick="minusgram(1000)">-1KG</button>
+            <h1 style="margin:0px">
+                <button type="button" class="adjust-button" onclick="minusgram(1000)">-1KG</button>
             <button type="button" class="adjust-button" onclick="minusgram(100)">-100G</button>
             
             <!-- Input for weight -->
@@ -19,6 +20,8 @@
             <!-- Add more weight -->
             <button type="button" class="adjust-button" onclick="addgram(100)">+100G</button>
             <button type="button" class="adjust-button" onclick="addgram(1000)">+1KG</button>
+            </h1>
+            
         </div>
 
         <!-- Reset and submit buttons -->

@@ -55,7 +55,7 @@ class delivery_controller extends Controller
             $data = pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('pickups.p_state','successful')->orderBy('pickups.updated_at','desc')->get();
             $dataoutput = view('components.loop_history_pickup',['pickups'=>$data])->render();
             return response()->json(['data'=>$dataoutput]);
-        }else{
+        }elseif ($type ==='carts') {
             $data =carts::join('products','carts.product_id','=','products.id')->where('c_state','delete')->orderBy('carts.updated_at','desc')->get();
             $dataoutput = view('components.loop_history_cart',['carts'=>$data])->render();
             return response()->json(['data'=>$dataoutput]);

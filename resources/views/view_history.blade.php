@@ -1,97 +1,112 @@
 @extends('header')
 @section('content')
+<div>
     <a href="{{ route('delivery') }}">Delivery</a>
     <a href="{{ route('view_pickup') }}">Pick up</a>
     <a href="javascript:void(0)">History</a>
-    <div>
-        <h1 style="text-align: center;margin:3px">History</h1>
-        <button type="button" class="button" id="delivery">Delivery</button>
+</div>
+
+<div>
+    <h1 style="text-align: center;margin: 3px">History</h1>
+    <div class="button-container">
+        <button type="button" class="button active" id="delivery">Delivery</button>
         <button type="button" class="button" id="pickup">Pick up</button>
         <button type="button" class="button" id="cart">Cart</button>
-        <div id="view">
-        </div>  
     </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function(){
+
+    <div id="view"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        // Load default delivery data
+        loadView(type='deliverys', element='#delivery');
+
+        // Click handlers
+        $("#delivery").click(function(){
+            loadView('deliverys', this);
+        });
+
+        $("#pickup").click(function(){
+            loadView('pickups', this);
+        });
+
+        $("#cart").click(function(){
+            loadView('carts', this);
+        });
+
+        // Load view based on type
+        function loadView(type , element) {
+            
+            if (type === 'deliverys') {
+                    var url =  "{{ route('history_delivery','deliverys') }}"
+                } else if (type === 'pickups') {
+                    var url = "{{ route('history_delivery','pickups') }}"
+                }else{
+                    var url = "{{ route('history_delivery','carts') }}"
+                }
             $.ajax({
-                    url:"{{ route('history_delivery',['type'=>'deliverys']) }}",
-                    type:'GET',
-                    datatype:'json',
-                    success:function(response){
-                        $('#view').html(response.data);
-                    },
-                    error:function(xhr, status, error){
-                        window.alert('error');
-                    }
-                })
-            $('#pickup').css('background-color','aquamarine')
-            $('#cart').css('background-color','aquamarine')
-            $("#delivery").click(function(){
-                $.ajax({
-                    url:"{{ route('history_delivery',['type'=>'deliverys']) }}",
-                    type:'GET',
-                    datatype:'json',
-                    success:function(response){
-                        $('#view').html(response.data);
-                    },
-                    error:function(xhr, status, error){
-                        window.alert('error');
-                    }
-                })
-                $('#delivery').css('background-color','aqua')
-                $('#pickup').css('background-color','aquamarine')
-                $('#cart').css('background-color','aquamarine')
-            })
-            $("#pickup").click(function(){
-                $.ajax({
-                    url:"{{ route('history_delivery',['type'=>'pickups']) }}",
-                    type:'GET',
-                    datatype:'json',
-                    success:function(response){
-                        $('#view').html(response.data);
-                    },
-                    error:function(xhr, status, error){
-                        window.alert('error');
-                    }
-                })
-                $('#delivery').css('background-color','aquamarine')
-                $('#pickup').css('background-color','aqua')
-                $('#cart').css('background-color','aquamarine')
-            })
-            $("#cart").click(function(){
-                $.ajax({
-                    url:"{{ route('history_delivery',['type'=>'carts']) }}",
-                    type:'GET',
-                    datatype:'json',
-                    success:function(response){
-                        $('#view').html(response.data);
-                    },
-                    error:function(xhr, status, error){
-                        window.alert('error');
-                    }
-                })
-                $('#pickup').css('background-color','aquamarine')
-                $('#delivery').css('background-color','aquamarine')
-                $('#cart').css('background-color','aqua')
-            })
-        })
-    </script>
-    
-    
-    <style>
-        #view{
-            background-color: aqua;
-            width: 100%;
+                
+                url:url,
+                type: 'GET',
+                datatype: 'json',
+                success: function(response) {
+                    $('#view').html(response.data);
+                },
+                error: function(xhr, status, error) {
+                    window.alert('error');
+                }
+            });
+
+            // Update button styles
+            $('.button').removeClass('active');
+            $(element).addClass('active');
         }
-        .button{
-            width: 33.1%;
-            border: 0px;
-            background-color: aqua;
-            margin: 0px;
-            border-collapse: collapse;
-            border-top-left-radius: 5px ;
-            border-top-right-radius: 5px;
+    });
+</script>
+
+<style>
+    /* General styling */
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .button {
+        flex-grow: 1;
+        padding: 10px;
+        text-align: center;
+        background-color: aquamarine;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px 5px 0 0;
+        transition: background-color 0.3s;
+    }
+
+    .button.active {
+        background-color: aqua;
+    }
+
+    .button:not(:last-child) {
+        margin-right: 5px;
+    }
+
+    #view {
+        background-color: #f0f8ff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-top: none;
+        min-height: 200px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .button {
+            padding: 8px;
         }
-    </style>
+    }
+</style>
 @endsection

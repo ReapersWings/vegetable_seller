@@ -6,8 +6,11 @@
         @php
             $fornum = 0;
         @endphp
-        @if (!$cart[0])
+        @if (count($cart[0])===0)
             <div class="empty-cart">Your cart is empty</div>
+            @php
+                $i=0
+            @endphp
         @else
         @php
             $row = $cart[0]
@@ -23,7 +26,7 @@
                     <label for="">Quantity need</label>
                     <input type="number" min="100" step="100" value="{{ $row[$i]['c_quantity'] }}" name="{{ "quantity".$i }}" max="{{ $row[$i]['p_total_quantity'] }}" id="{{ "quantity".$i }}" oninput="calculate({{ $row[$i]['p_price']}},'{{ 'quantity'.$i }}','{{'price'.$i }}')" class="quantity-input">KG<br>
                     <label for="">Total Price: RM</label>
-                    <input type="number" min="0.00" value="{{ $row[$i]['p_price'] }}" name="{{ "price".$i }}" id="{{ "price".$i }}" readonly class="price-input"><br>
+                    <input type="number" min="0.00" value="{{ $row[$i]['c_quantity']/1000 * $row[$i]['p_price'] }}" name="{{ "price".$i }}" id="{{ "price".$i }}" readonly class="price-input"><br>
                     <a href="{{ route('f_delete_cart',$row[$i]['c_id']) }}" class="button-link"><button type="button" class="button">Delete</button></a>
                 </div>
             </div>
@@ -50,7 +53,7 @@
         </div>
     </div>
     <div class="checkout-button-container">
-        <button type="submit" name="submit" class="checkout-button">Checkout</button>
+        <button type="submit" name="submit" class="checkout-button" value="{{ $i-1 }}">Checkout</button>
     </div>
 </form>
 

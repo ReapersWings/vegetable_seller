@@ -57,6 +57,7 @@ class cart_controller extends Controller
         
     }
     public function f_checkout(Request $request){
+        //dd($request);
         if ($request->submit < 0) {
             return back()->with('message','please add vegetable to cart!');
         }
