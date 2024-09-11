@@ -24,6 +24,6 @@ class product_controller extends Controller
         ]);
         $formaddproduct['image']=$request->file('image')->store('images',"public");
         products::create($formaddproduct);
-        return back()->with('message','add Product Succcessful!');
+        return back()->with('message','add vegetable Succcessful!');
     }
 }

@@ -57,7 +57,7 @@ class delivery_controller extends Controller
             return response()->json(['data'=>$dataoutput]);
         }else{
             $data =carts::join('products','carts.product_id','=','products.id')->where('c_state','delete')->orderBy('carts.updated_at','desc')->get();
-            $dataoutput = view('components.loop_history_carts',['carts'=>$data])->render();
+            $dataoutput = view('components.loop_history_cart',['carts'=>$data])->render();
             return response()->json(['data'=>$dataoutput]);
         }
     }

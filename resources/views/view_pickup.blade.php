@@ -19,7 +19,7 @@
                     @if ($rows['checkout_id']===$example)
                         <a href="{{ route('view_product_delivery',['id'=>$row['c_id'],'type'=>'pickup']) }}">
                             <button style="width: 100%;">
-                                <p class="text">Product name : <b>{{ $rows['p_name'] }}</b></p>
+                                <p class="text">Vegetable name : <b>{{ $rows['p_name'] }}</b></p>
                                 <p class="text"><b>RM{{ $rows['c_total_price'] }}/{{ $rows['c_quantity'] }}</b></p>
                             </button>
                         </a>

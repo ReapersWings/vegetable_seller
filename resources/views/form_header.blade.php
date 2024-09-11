@@ -21,41 +21,73 @@
     }
 </script>
 <style>
-    body{
-        background-color: aquamarine;
+    body {
+    background-color: aquamarine;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+div {
+    max-width: 90%; /* Adjusted for mobile */
+    border-radius: 25px;
+    text-align: center;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid rgb(209, 207, 207);
+    background-color: white;
+    padding: 10px;
+}
+
+form {
+    padding: 15px; /* Reduced padding for small screens */
+    margin: 0;
+}
+
+label {
+    float: left;
+    width: 100%; /* Full width on mobile */
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%; /* Full width for inputs */
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+#submit {
+    width: 100%; /* Full width for the submit button */
+    border: 4px solid rgb(209, 207, 207);
+    border-radius: 25px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    margin-top: 15px;
+}
+
+button {
+    width: 100%; /* Full width for the button */
+    border: 4px solid rgb(209, 207, 207);
+    border-radius: 25px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f2f2f2;
+}
+
+p {
+    color: red;
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    /* Larger screens */
+    div {
+        max-width: 50%; /* Restore original width for larger screens */
     }
-    div{    
-        max-width: 50%;
-        border-radius: 25px ;
-        text-align: center;
-        margin-top: 50px;
-        margin-left: 25%;
-        margin-right: 25%;
-        border: 4px solid rgb(209, 207, 207);
-        background-color: white;
-        padding: 10px;
-    }
-    form{
-        padding: 25px;
-        margin: 0%;
-    }
-    label{
-        float: left;
-        width: 40%;
-    }
-    #submit{
-        width: 80%;
-        border: 4px solid rgb(209, 207, 207);
-        border-radius: 25px ;
-        float:none;
-        margin: 5px 
-    }
-    input{
-        border-radius: 10px;
-        width: 60%;
-        float: right;
-    }
-    p{
-        color:red;
-    }
+}
+
 </style>

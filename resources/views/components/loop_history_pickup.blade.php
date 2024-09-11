@@ -6,11 +6,11 @@
         $pickup = $pickups[0]
     @endphp
 
-    <table>
+    <table  style="width:100%;border-top:2px solid black">
     @foreach ($pickup as $row)
         @if ($row['checkout_id'] !== $loop)
         <tr>
-            <td>
+            <td style="border-bottom: 2px solid black">
                 <div style="float: left;width:20%">
                     <h1>{{ $row['name_location'] }}</h1>
                 </div>

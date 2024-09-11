@@ -1,19 +1,17 @@
 @extends('header')
 @section('content')
-    @php
-        $row=$preparing[0] ;
-    @endphp
     <div>
         <a href="javascript:void(0)">Delivery</a>
         <a href="{{ route('view_pickup') }}">Pick up</a>
         <a href="{{ route('history') }}">History</a>
         @if (count($preparing[0]) === 0 && count($ontheway[0]) === 0)
+            <h1>--Not Vegetable have been delivery--</h1>
         @else
             <table class="table">
                 <thead>
                     <th>Preparing</th>
                 </thead>
-                <x-display-result :row=$row , data="Not Delivery be preparing!"/>
+                <x-display-result :row=$preparing[0] , data="Not Delivery be preparing!"/>
             </table>
             <table class="table">
                 <thead>

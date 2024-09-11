@@ -14,7 +14,7 @@
                             $id = $row[$i]['checkouts_id'];
                         @endphp
                         <div style="border:2px solid black;border-radius: 15px ;overflow: auto;background-color:grey;padding:10px">
-                            <p class="text" style="text-align: center"><ins><b>Product delivery:</b></ins></p>
+                            <p class="text" style="text-align: center"><ins><b>Vegetable delivery:</b></ins></p>
                             @for ($ii = 0; $ii < count($row); $ii++)
                                 @if ($row[$ii]['checkouts_id']===$id)
                                     <a href="{{ route('view_product_delivery',['id'=>$row[$ii]['c_id'],'type'=>'delivery']) }}"><button class="product">

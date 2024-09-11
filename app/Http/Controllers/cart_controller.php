@@ -15,6 +15,10 @@ use Illuminate\Support\Str;
 
 class cart_controller extends Controller
 {
+    public function __construct()
+    {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+    }
     public function view_cart(){
         $address = address::where('user_id','=',Auth::user()->id)->get();
         $cart = carts::join('products','products.id','=','carts.product_id')->where('carts.user_id','=',Auth::user()->id)->where('c_state','=','at_cart')->get();
@@ -25,17 +29,27 @@ class cart_controller extends Controller
         ]);
     }
     public function f_add_cart(Request $request){
-        //dd($request);
-        $formadd=$request->validate([
-            'c_quantity'=>'required|min:1',
-            'product_id'=>'required'
-        ]);
-        $check = carts::where('user_id','=',Auth::user()->id)->where('product_id','=',$request->product_id)->where('c_state','=','at_cart')->get();
+        //dd(count($request->request));
+        if (count($request->request) === 3  ) {
+            $formadd=$request->validate([
+                'c_quantity'=>'required',
+                'product_id'=>'required'
+            ]);
+        }else{
+            $id = explode(':',$request->c_id);
+            $formadd=['product_id'=>$id[1],'c_id'=>$id[0]];
+        }
+        
+        $check = carts::where('user_id','=',Auth::user()->id)->where('product_id','=',$formadd['product_id'])->where('c_state','=','at_cart')->get();
         if (count($check) === 0) {
-            $formadd['product_id']=(int)$request->product_id;
-            $formadd['user_id']=Auth::user()->id;
-            $formadd['c_state']='at_cart';
-            carts::create($formadd);
+            if (count($request->request) === 3) {
+                $formadd['product_id']=(int)$request->product_id;
+                $formadd['user_id']=Auth::user()->id;
+                $formadd['c_state']='at_cart';
+                carts::create($formadd);
+            }else{
+                carts::where('c_id',$formadd['c_id'])->update(['c_state'=>'at_cart','c_quantity'=>1000,'updated_at'=>date('Y-m-d H:i:s')]);
+            }
             return redirect()->route('main')->with('message','Add Cart successful!');
         }else{
             return redirect()->route('main')->with('message','This already at cart!');
@@ -44,7 +58,7 @@ class cart_controller extends Controller
     }
     public function f_checkout(Request $request){
         if ($request->submit < 0) {
-            return back()->with('message','please add product to cart!');
+            return back()->with('message','please add vegetable to cart!');
         }
         $random= rand(000000001,999999999);
         if (!$request->addres && $request->checkout === "delivery") {
@@ -80,10 +94,10 @@ class cart_controller extends Controller
                 return back()->with('message','check out successful please pick up at between the date!');
             }
         }
-        return back()->with('message','Please select product your need to buy from your cart');
+        return back()->with('message','Please select vegetable your need to buy from your cart');
     }
     public function f_delete_cart($products){
-        carts::where('c_id','=',$products)->update(['c_state'=>'delete']);
+        carts::where('c_id','=',$products)->update(['c_state'=>'delete','updated_at'=>date('Y-m-d H:i:s')]);
         return back()->with('message','Delete successful!');
     }
 }

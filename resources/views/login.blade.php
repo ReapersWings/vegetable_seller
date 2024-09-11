@@ -4,8 +4,9 @@
     <script>window.alert({{ session('message') }})</script>
 @endif
 <form action="{{ route('f_login') }}" method="POST">
-    <h1>Login</h1>
     @csrf
+    <h1>Login</h1>
+    
     <label for="">Username:</label>
     <input type="text" name="name" value="{{ old('name') }}"><br>
     @error('name')

@@ -5,11 +5,11 @@
         $total_price = 0 ;
         $delivery = $deliverys[0]
     @endphp
-    <table>
+    <table style="width:100%;border-top:2px solid black">
     @foreach ($delivery as $row)
         @if ($row['checkout_id'] !== $loop)
         <tr>
-            <td>
+            <td style="border-bottom: 2px solid black">
                 <div style="float: left;width:20%">
                     <h1>{{ $row['name_location'] }}</h1>
                 </div>
@@ -35,5 +35,5 @@
     @endforeach
 </table>
 @else
-    <h1 style="text-align: center;margin:0px;">-- Not Delivery History --</h1>
+    <h1 style="text-align: center;margin:0px;">-- Not History --</h1>
 @endif

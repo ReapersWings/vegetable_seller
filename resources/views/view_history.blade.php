@@ -14,6 +14,19 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function(){
+            $.ajax({
+                    url:"{{ route('history_delivery',['type'=>'deliverys']) }}",
+                    type:'GET',
+                    datatype:'json',
+                    success:function(response){
+                        $('#view').html(response.data);
+                    },
+                    error:function(xhr, status, error){
+                        window.alert('error');
+                    }
+                })
+            $('#pickup').css('background-color','aquamarine')
+            $('#cart').css('background-color','aquamarine')
             $("#delivery").click(function(){
                 $.ajax({
                     url:"{{ route('history_delivery',['type'=>'deliverys']) }}",
@@ -26,6 +39,9 @@
                         window.alert('error');
                     }
                 })
+                $('#delivery').css('background-color','aqua')
+                $('#pickup').css('background-color','aquamarine')
+                $('#cart').css('background-color','aquamarine')
             })
             $("#pickup").click(function(){
                 $.ajax({
@@ -39,6 +55,9 @@
                         window.alert('error');
                     }
                 })
+                $('#delivery').css('background-color','aquamarine')
+                $('#pickup').css('background-color','aqua')
+                $('#cart').css('background-color','aquamarine')
             })
             $("#cart").click(function(){
                 $.ajax({
@@ -52,6 +71,9 @@
                         window.alert('error');
                     }
                 })
+                $('#pickup').css('background-color','aquamarine')
+                $('#delivery').css('background-color','aquamarine')
+                $('#cart').css('background-color','aqua')
             })
         })
     </script>
@@ -67,8 +89,9 @@
             border: 0px;
             background-color: aqua;
             margin: 0px;
-            border-radius: 5px;
             border-collapse: collapse;
+            border-top-left-radius: 5px ;
+            border-top-right-radius: 5px;
         }
     </style>
 @endsection
