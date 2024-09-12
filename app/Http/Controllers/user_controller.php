@@ -22,6 +22,11 @@ class user_controller extends Controller
         return view('verify');
     }
     public function login(){
+        if (!Auth::guard('admin')->check()) {
+        }else{
+            Auth::guard('admin')->logout();
+        }
+
         return view('login');
     }
     public function register(){

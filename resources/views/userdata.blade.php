@@ -11,11 +11,14 @@
                 document.getElementById('input2').removeAttribute('readonly');
                 document.getElementById('input3').removeAttribute('readonly');
                 document.getElementById('input4').removeAttribute('readonly');
+                document.getElementById('input5').removeAttribute('readonly');
                 textvalue.push(
                     '{{ auth()->user()->name }}',
                     '{{ auth()->user()->email }}',
-                    '{{ !auth()->user()->Noic ? "" : auth()->user()->Noic }}',
+                    '{{ !auth()->user()->f_name ? "" : auth()->user()->f_name }}',
+                    '{{ !auth()->user()->l_name ? "" : auth()->user()->l_name }}',
                     '{{ !auth()->user()->gender ? "" : auth()->user()->gender }}'
+                    
                 );
                 cau++;
             } else {
@@ -25,10 +28,12 @@
                 document.getElementById('input2').setAttribute('readonly', true);
                 document.getElementById('input3').setAttribute('readonly', true);
                 document.getElementById('input4').setAttribute('readonly', true);
+                document.getElementById('input5').setAttribute('readonly', true);
                 document.getElementById('input1').value = textvalue[0];
                 document.getElementById('input2').value = textvalue[1];
                 document.getElementById('input3').value = textvalue[2];
                 document.getElementById('input4').value = textvalue[3];
+                document.getElementById('input5').value = textvalue[4];
                 cau--;
             }
         }
@@ -57,12 +62,16 @@
                         <td><input type="email" name="email" id="input2" value="{{ auth()->user()->email }}" readonly></td>
                     </tr>
                     <tr>
-                        <td>No. IC:</td>
-                        <td><input type="text" name="Noic" id="input3" value="{{ !auth()->user()->Noic ? '' : auth()->user()->Noic }}" readonly></td>
+                        <td>First Name:</td>
+                        <td><input type="text" name="f_name" id="input3" value="{{ !auth()->user()->f_name ? '' : auth()->user()->f_name }}" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name:</td>
+                        <td><input type="text" name="l_name" id="input4" value="{{ !auth()->user()->l_name ? '' : auth()->user()->l_name }}" readonly></td>
                     </tr>
                     <tr>
                         <td>Gender:</td>
-                        <td><input type="text" name="gender" id="input4" value="{{ !auth()->user()->gender ? '' : auth()->user()->gender }}" readonly></td>
+                        <td><input type="text" name="gender" id="input5" value="{{ !auth()->user()->gender ? '' : auth()->user()->gender }}" readonly></td>
                     </tr>
                     <tr id="hidden" style="display: none">
                         <td colspan="2" class="button-cell">

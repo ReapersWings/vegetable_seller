@@ -21,7 +21,8 @@ class User extends Authenticatable
         'email',
         'password',
         'email_verify_token',
-        'Noic',
+        'f_name',
+        'l_name',
         'gender'
     ];
 

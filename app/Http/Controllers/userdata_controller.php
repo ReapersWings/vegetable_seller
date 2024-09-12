@@ -35,11 +35,11 @@ class userdata_controller extends Controller
         $formedit=$request->validate([
             'name'=>'required',
             'email'=>'required',
-            'Noic'=>'required|numeric|digits_between:12,12',
+            'f_name'=>'required',
+            'l_name'=>'required',
             'gender'=>'required'
         ]);
         if ($request->input('email') !== $checkemail[0]->email) {
-            $formedit['email_verify_token']=rand(100000,999999);
             $formedit['email_verified_at']=Null;
             $data->update($formedit);
             Mail::to($request->email)->send(new emailverify($formedit));

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\address;
+use App\Models\admins;
 use App\Models\products;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -47,6 +48,11 @@ class DatabaseSeeder extends Seeder
             'p_name'=>'test1',
             'p_total_quantity'=>'123141414000',
             'p_price'=>'100'
+        ]);
+        admins::create([
+            'username'=>'Admin_seller',
+            'password'=>'Admin_@seller123',
+            'email'=>'ooi98872@gmail.com'
         ]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin_controller;
 use App\Http\Controllers\cart_controller;
 use App\Http\Controllers\delivery_controller;
 use App\Http\Controllers\product_controller;
@@ -7,6 +8,7 @@ use App\Http\Controllers\user_controller;
 use App\Http\Controllers\userdata_controller;
 use App\Http\Middleware\check_auth;
 use App\Http\Middleware\check_verify_email;
+use App\Models\admins;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(user_controller::class)->group(function(){
@@ -63,3 +65,9 @@ Route::middleware(check_auth::class)->group(function(){
     });
 });
 
+Route::controller(admin_controller::class)->group(function(){
+        Route::get('/s_login','login')->name('admin_login');
+        Route::post('/f_s_login','f_login')->name('f_seller_login');
+        Route::post('/s_logout','f_logout')->name('f_s_logout');
+        Route::get('/s_main','')->name('admin_main');
+    });
