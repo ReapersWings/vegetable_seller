@@ -17,6 +17,9 @@ class check_auth
      */
     public function handle(Request $request, Closure $next): Response
     {   
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        }
         if (!Auth::check()) {
             return redirect()->route('login')->with('message','Please login first!');
         }

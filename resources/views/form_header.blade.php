@@ -52,7 +52,7 @@ label {
     text-align: left;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"] ,input[type="number"]{
     width: 100%; /* Full width for inputs */
     border-radius: 10px;
     margin-bottom: 10px;

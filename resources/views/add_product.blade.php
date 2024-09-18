@@ -15,7 +15,7 @@
     @error('p_name')
         <p>{{ $message }}</p>
     @enderror
-    <label for="">Total quantity(g):</label>
+    <label for="">Total quantity(KG):</label>
     <input type="number" name="p_total_quantity" value="{{ old('p_total_quantity') }}">
     @error('p_total_quantity')
         <p>{{ $message }}</p>

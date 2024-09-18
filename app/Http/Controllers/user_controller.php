@@ -22,11 +22,9 @@ class user_controller extends Controller
         return view('verify');
     }
     public function login(){
-        if (!Auth::guard('admin')->check()) {
-        }else{
+        if (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
         }
-
         return view('login');
     }
     public function register(){
@@ -42,6 +40,7 @@ class user_controller extends Controller
         return view('reset_password');
     }
     public function main(){
+        //dd(Auth::guard('web')->user());
         return view('main',[
             'data'=>products::where("p_total_quantity",">","0")->paginate(8)
         ]);
@@ -108,7 +107,7 @@ class user_controller extends Controller
 
     public function f_inputemail(Request $request){
         if (!$request->email) {
-            return redirect()->route('inputemail')->with('email','please input the email');
+            return redirect()->route('inputemail')->with('message','please input the email');
         }
         $check=User::where('email',$request->email)->get();
         if (count($check)===0) {

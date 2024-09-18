@@ -16,7 +16,10 @@ class check_admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::admin()->check()) {
+        if (Auth::check()) {
+            Auth::logout();
+        }
+        if (!Auth::guard('admin')->check()) {
             return redirect()->route('login')->with('message','please login');
         }    
         return $next($request);

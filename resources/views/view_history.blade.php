@@ -1,9 +1,9 @@
 @extends('header')
 @section('content')
-<div>
-    <a href="{{ route('delivery') }}">Delivery</a>
-    <a href="{{ route('view_pickup') }}">Pick up</a>
-    <a href="javascript:void(0)">History</a>
+<div class="navigation">
+    <a href="{{ route('delivery') }}" class="nav-link">Delivery</a>
+    <a href="{{ route('view_pickup') }}" class="nav-link">Pick up</a>
+    <a href="javascript:void(0)" style="color: darkblue" class="nav-link">History</a>
 </div>
 
 <div>
@@ -67,6 +67,19 @@
 </script>
 
 <style>
+    .navigation {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav-link {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
     /* General styling */
     .button-container {
         display: flex;

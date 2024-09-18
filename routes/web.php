@@ -6,6 +6,7 @@ use App\Http\Controllers\delivery_controller;
 use App\Http\Controllers\product_controller;
 use App\Http\Controllers\user_controller;
 use App\Http\Controllers\userdata_controller;
+use App\Http\Middleware\check_admin;
 use App\Http\Middleware\check_auth;
 use App\Http\Middleware\check_verify_email;
 use App\Models\admins;
@@ -42,10 +43,14 @@ Route::controller(userdata_controller::class)->group(function(){
     Route::post('/add_addres','f_add_addres')->name('f_add_addres')->middleware(check_verify_email::class);
 });
 Route::controller(product_controller::class)->group(function(){
-    Route::get('/add_product','add_product');
-    Route::get('/view_product_data/{data}','view_product')->name('product_data');
+    Route::get('/add_product','add_product')->name('admin_add_product')->middleware(check_admin::class);
+    Route::get('/delete_product/{data}','delete_product')->name('delete_product')->middleware(check_admin::class);
+    Route::get('/edit_product/{data}','edit_product')->name('edit_product')->middleware(check_admin::class);
     Route::post('/f_add_product','f_add_product')->name('f_add_product');
-    
+    Route::post('/f_edit_product/{data}','f_edit_product')->name('f_edit_product');
+
+    //user
+    Route::get('/view_product_data/{data}','view_product')->name('product_data');
 });
 Route::middleware(check_auth::class)->group(function(){
     Route::controller(cart_controller::class)->group(function(){
@@ -65,9 +70,11 @@ Route::middleware(check_auth::class)->group(function(){
     });
 });
 
-Route::controller(admin_controller::class)->group(function(){
-        Route::get('/s_login','login')->name('admin_login');
-        Route::post('/f_s_login','f_login')->name('f_seller_login');
+Route::middleware(check_admin::class)->group(function(){
+    Route::controller(admin_controller::class)->group(function(){
+        Route::get('/s_login','login')->name('admin_login')->withoutMiddleware(check_admin::class);
+        Route::post('/f_s_login','f_login')->name('f_seller_login')->withoutMiddleware(check_admin::class);
         Route::post('/s_logout','f_logout')->name('f_s_logout');
-        Route::get('/s_main','')->name('admin_main');
+        Route::get('/s_main','main')->name('admin_main');
     });
+});
