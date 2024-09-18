@@ -6,7 +6,7 @@
 <header>
     <a href="{{ route('admin_main') }}"><button>View Product</button></a>
     <a href="{{ route('admin_add_product') }}"><button>Add Product</button></a>
-    <a href="{{ "route('user_pickup')" }}"><button>User pick up</button></a>
+    <a href="{{ route('user_pickup') }}"><button>User pick up</button></a>
     <a href="{{ "route('user_delivery')" }}"><button>User Delivery</button></a>
     <a href="{{ route('f_s_logout') }}"><button>Logout</button></a>
 </header>

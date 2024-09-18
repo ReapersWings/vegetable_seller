@@ -11,11 +11,11 @@
     document.getElementById('submit').onclick = submit_button_hide()
     function submit_button_hide(){
         if (submit_button_hide === 0 ) {
-            document.getElementById('submit').type='hidden'
+            document.getElementById('submit').type='button'
             submit_button_hide ++
         } else {
             document.getElementById('submit').type='submit'
-            submit_button_hide --
+            submit_button_hide -=1
         }
         setTimeout(submit_button_hide(), 30000);
     }

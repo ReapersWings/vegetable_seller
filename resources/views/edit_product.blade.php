@@ -14,18 +14,28 @@
                     @csrf
                     <label for="">Product image:</label>
                     <input type="file" name="image" id="image" onchange="changeImage(this)">
-                        <img src={{ asset('storage/'.$row['image']) }} alt="" id="imagedisplay">
+                    <img src={{ asset('storage/'.$row['image']) }} alt="" id="imagedisplay">
                     <label for="">Product name:</label>
-                    <input type="text" value="{{ $row['p_name'] }}" name="p_name">
+                    <input type="text" value="{{ old('p_name')?old('p_name'):$row['p_name'] }}" name="p_name">
+                    @error('p_name')
+                        <p>{{ $message }}</p>
+                    @enderror
                     <label for="">Product Price(1KG):</label>
-                    <input type="text" value="{{ $row['p_price'] }}" name="p_price">
+                    <input type="text" value="{{ old('p_price')?old('p_price'):$row['p_price'] }}" name="p_price">
+                    @error('p_price')
+                        <p>{{ $message }}</p>
+                    @enderror
                     <label for="">Total Quantity:</label>
-                    <input type="number" value="{{ $row['p_total_quantity'] }}" name="p_total_quantity" id="quantity">
+                    <input type="number" value="{{ old('p_total_quantity')?old('p_total_quantity'):$row['p_total_quantity'] }}" name="p_total_quantity" id="quantity">
+                    @error('p_total_quantity')
+                        <p>{{ $message }}</p>
+                    @enderror
                     <input type="button" value="-100G" onclick="add_quantity(100,'-')">
                     <input type="button" value="-1KG" onclick="add_quantity(1000,'-')">
                     <input type="button" value="+1KG" onclick="add_quantity(1000,'+')">
                     <input type="button" value="+100G" onclick="add_quantity(100,'+')">
-                    <button type="submit" name="product" value="{{ $row['id'] }}" >Submit</button>
+                    <button type="submit" name="product" value="{{ $row['id'] }}" id="submit">Submit</button>
+                    <a href="{{ route('admin_main') }}"><button type="button">Back</button></a>
                 </form>
             </td>
             <td style="border-left: 2px solid black ; border-top: 2px solid black;width: 35%;text-align:center">

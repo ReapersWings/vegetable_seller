@@ -35,6 +35,7 @@
         <P>{{ $message }}</P>
     @enderror
     <input type="submit" id="submit">
+    <a href="{{ route('view_addres') }}"><button type="button">Back</button></a>
 </form>
     
 @endsection

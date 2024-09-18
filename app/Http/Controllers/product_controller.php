@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\products;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class product_controller extends Controller
 {
@@ -36,7 +37,7 @@ class product_controller extends Controller
     public function f_add_product(Request $request){
         $formaddproduct=$request->validate([
             'image'=>'required',
-            'p_name'=>'required',
+            'p_name'=>['required',Rule::unique('products','p_name')],
             'p_total_quantity'=>'required|numeric|min:1',
             'p_price'=>'required|numeric|gt:0'
         ]);

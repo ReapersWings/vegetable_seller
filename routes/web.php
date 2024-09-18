@@ -73,8 +73,12 @@ Route::middleware(check_auth::class)->group(function(){
 Route::middleware(check_admin::class)->group(function(){
     Route::controller(admin_controller::class)->group(function(){
         Route::get('/s_login','login')->name('admin_login')->withoutMiddleware(check_admin::class);
+        Route::get('/s_main','main')->name('admin_main');
+        Route::get('/user_pickup','pickup')->name('user_pickup');
+
+        Route::post('/f_view_pickup','f_pickup')->name('loop_pickup');
         Route::post('/f_s_login','f_login')->name('f_seller_login')->withoutMiddleware(check_admin::class);
         Route::post('/s_logout','f_logout')->name('f_s_logout');
-        Route::get('/s_main','main')->name('admin_main');
+        
     });
 });
