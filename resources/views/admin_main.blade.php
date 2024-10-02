@@ -6,9 +6,7 @@
             <th style="width: 10%;">Edit:</th>
             <th style="width: 10%;">Delete:</th>
         </thead>
-        
         @foreach ($product as $row)
-        {{ $loop= 0 ; }}
             <tr>
                 <td>
                     <div style="width: 30%;height:20%;float: left;">
@@ -18,15 +16,18 @@
                         <h1>{{ $row['p_name'] }}</h1>
                         <p>Price(1KG): <b>RM{{ $row['p_price'] }}</b> </p>
                         <p>Total Quantity:<b>{{ $row['p_total_quantity']/1000 }}KG</b></p>
-                        <form action="" method="post">
-                            <label for="">Mass Add(G):</label>
-                            <input type="number" name="quantity" id="mass" value="0">
-                            <button type="button" onclick="addmass('mass{{ $loop }}',100)">+100g</button>
-                            <button type="button" onclick="addmass('mass{{ $loop }}',1000)">+1kg</button>
+                        <form action="{{ route('f_add_quantity',$row['id']) }}" method="post" style="width: 100%">
+                            @csrf
+                            <label for="">Mass Add(G):</label><br>
+                            <input type="number" name="quantity" id="{{ 'mass'.$row['id'] }}" value="0" style="width: 100%;" readonly><br>
+                            <button type="button" onclick="addmass('{{ 'mass'.$row['id'] }}',10000,'negatif')" style="margin-top:5px;">-10kg</button>
+                            <button type="button" onclick="addmass('{{ 'mass'.$row['id'] }}',1000,'negatif')" style="margin-top:5px;">-1kg</button>
+                            <button type="button" onclick="addmass('{{ 'mass'.$row['id'] }}',100,'negatif')" style="margin-top:5px;">-100g</button>
+                            <button type="button" onclick="addmass('{{ 'mass'.$row['id'] }}',100,'add')" style="margin-top:5px;">+100g</button>
+                            <button type="button" onclick="addmass('{{ 'mass'.$row['id'] }}',1000,'add')" style="margin-top:5px;">+1kg</button>
+                            <button type="button" onclick="addmass('{{ 'mass'.$row['id'] }}',10000,'add')" style="margin-top:5px;">+10kg</button><br>
+                            <button type="submit" style="width: 100%;margin-top:5px;">Submit</button>
                         </form>
-                        @php
-                            $loop+=1 ;
-                    @endphp
                     </div>
                 </td>
                 <td>
@@ -42,15 +43,39 @@
         @endforeach
     </table>
     <script>
-        function addmass(plece , number){
+        function addmass(plece , number , add){
             var addmassnumber =document.getElementById(plece)
-            var result = parseInt(addmassnumber.value)+number
-            addmassnumber.value=result
+            if (add === "add") {
+                addmassnumber.value= parseInt(addmassnumber.value) +number
+            } else {
+                if (parseInt(addmassnumber.value)-number >=0) {
+                   addmassnumber.value= parseInt(addmassnumber.value) -number 
+                }
+            }
+              
         }
     </script>
     <style>
+        td>a>button{
+            height: 335px;
+            font-size: 40px
+        }
         table,th,td{
             border: 2px solid black;
+        }
+        /* form{
+            border: 2px solid black;
+        } */
+        label{
+            border-bottom: 2px solid black;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        form > button{
+            
+            margin: 0px;
+            height: 25px;
         }
     </style>
 @endsection

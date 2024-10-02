@@ -46,6 +46,14 @@ class product_controller extends Controller
         products::create($formaddproduct);
         return back()->with('message','add vegetable Succcessful!');
     }
+    public function f_add_quantity(Request $request,products $id){
+        if ($request->quantity > 0) {
+            
+            $id->update(['p_total_quantity'=>$id['p_total_quantity']+$request->quantity]);
+            return redirect()->route('admin_main')->with('message','Add Mass Successful!');
+        }
+        return redirect()->route('admin_main')->with('message','Add Mass failed!');
+    }
 
 
     

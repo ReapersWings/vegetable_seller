@@ -46,8 +46,9 @@ Route::controller(product_controller::class)->group(function(){
     Route::get('/add_product','add_product')->name('admin_add_product')->middleware(check_admin::class);
     Route::get('/delete_product/{data}','delete_product')->name('delete_product')->middleware(check_admin::class);
     Route::get('/edit_product/{data}','edit_product')->name('edit_product')->middleware(check_admin::class);
-    Route::post('/f_add_product','f_add_product')->name('f_add_product');
-    Route::post('/f_edit_product/{data}','f_edit_product')->name('f_edit_product');
+    Route::post('/f_add_product','f_add_product')->name('f_add_product')->middleware(check_admin::class);
+    Route::post('/f_edit_product/{data}','f_edit_product')->name('f_edit_product')->middleware(check_admin::class);
+    Route::post('/f_add_quantity/{id}','f_add_quantity')->name('f_add_quantity')->middleware(check_admin::class);
 
     //user
     Route::get('/view_product_data/{data}','view_product')->name('product_data');
