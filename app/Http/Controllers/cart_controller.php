@@ -84,7 +84,7 @@ class cart_controller extends Controller
         }
         if ($createquerys) {         
             if ($request->checkout === "delivery") {
-                    deliverys::create(['checkouts_id'=>$random , 'addres_id'=>$request->addres , 'd_state'=>'be_ready']);
+                    deliverys::create(['checkouts_id'=>$random , 'addres_id'=>$request->addres , 'd_state'=>'readying']);
                     return back()->with('message','check out successful delivery is be prepare now!');          
             }else{
                 $token= Str::random(6);

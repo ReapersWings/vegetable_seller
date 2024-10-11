@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->Integer('checkouts_id');//->constrained('carts','checkout_id')->onDelete('cascade');
             $table->foreignId('addres_id')->constrained('address','id')->onDelete('cascade');
-            $table->enum('d_state',['be_ready','on_the_way','successful']);
+            $table->enum('d_state',['readying','on_the_way','successful']);
             $table->timestamps();
         });
     }

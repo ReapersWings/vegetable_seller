@@ -19,7 +19,7 @@
                         <form action="{{ route('f_add_quantity',$row['id']) }}" method="post" style="width: 100%">
                             @csrf
                             <label for="">Mass Add(G):</label><br>
-                            <input type="number" name="quantity" id="{{ 'mass'.$row['id'] }}" value="0" style="width: 100%;" readonly><br>
+                            <input type="number" name="quantity" id="{{ 'mass'.$row['id'] }}" value="0" style="width: 100%;margin-top:5px;" readonly><br>
                             <button type="button" onclick="addmass('{{ 'mass'.$row['id'] }}',10000,'negatif')" style="margin-top:5px;">-10kg</button>
                             <button type="button" onclick="addmass('{{ 'mass'.$row['id'] }}',1000,'negatif')" style="margin-top:5px;">-1kg</button>
                             <button type="button" onclick="addmass('{{ 'mass'.$row['id'] }}',100,'negatif')" style="margin-top:5px;">-100g</button>

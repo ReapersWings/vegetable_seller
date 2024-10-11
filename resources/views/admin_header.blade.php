@@ -3,12 +3,15 @@
         window.alert('{{ session("message") }}')
     </script>
 @endsession 
-<header>
-    <a href="{{ route('admin_main') }}"><button>View Product</button></a>
-    <a href="{{ route('admin_add_product') }}"><button>Add Product</button></a>
-    <a href="{{ route('user_pickup') }}"><button>User pick up</button></a>
-    <a href="{{ "route('user_delivery')" }}"><button>User Delivery</button></a>
-    <a href="{{ route('f_s_logout') }}"><button>Logout</button></a>
+<header class="header-container">
+    <div class="left-section">
+        <a href="{{ route('admin_main') }}"><button  class="header-button">View Product</button></a>
+        <a href="{{ route('admin_add_product') }}"><button  class="header-button">Add Product</button></a>
+        <a href="{{ route('user_pickup') }}"><button  class="header-button">User resit</button></a>
+        <a href="{ route('user_message') }}"><button class="header-button">Message</button></a>
+        <a href="{{ route('f_s_logout') }}"><button class="header-button">Logout</button></a>
+
+    </div>
 </header>
 <div id="content-container">
     @yield('content')
@@ -61,7 +64,7 @@
     }
     
     .left-section {
-        width: 30%;
+        width: 100%;
         float: left;
     }
     
@@ -72,10 +75,11 @@
         margin: 0;
     }
     
-    .header-button, .header-button>button {
-        width: 95%;
+    .header-button {
+        width: 20%;
         border-radius: 25px;
         margin-top: 2px; 
+        float: left;
     }
     
     .profileselect {

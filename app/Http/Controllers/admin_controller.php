@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\admins;
+use App\Models\carts;
+use App\Models\deliverys;
 use App\Models\pickups;
 use App\Models\products;
 use Illuminate\Http\Request;
@@ -35,20 +37,56 @@ class admin_controller extends Controller
         ]);
     }
     public function f_logout(Request $request){
-        Auth::admin()->logout();
+        Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login')->with('message','logout successful');
     }
-    
-    public function f_pickup(Request $request){
-        if ( $request->input === "") {
-            $data=pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('pickups.p_state','readying')->get();
+    public function view_resit($id,$pickup){
+        if ($pickup === 'pickup') {
+            $data =pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')
+            ->join('products','carts.product_id','=','products.id')
+            ->join('users','carts.user_id','=','users.id')
+            ->where('pickups.checkouts_id',$id)->get();
         }else{
-            $data=pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('pickups.p_state','readying')->where('pickups.c_token_pick_up','LIKE','%'.$request->input.'%')->get();
+            $data =deliverys::join('carts','deliverys.checkouts_id','=','carts.checkout_id')
+            ->join('products','carts.product_id','=','products.id')
+            ->join('address','deliverys.addres_id','=','address.id')
+            ->join('users','carts.user_id','=','users.id')
+            ->where('deliverys.checkouts_id',$id)->get();
         }
-        $datapick=view('components.loop_user_pickups',['data'=>$data])->render();
-        return response()->json(['data'=>$datapick]);
+        //dd($data);
+        return view('view_user_resit',[
+            'data'=>$data,
+            'type'=>$pickup
+        ]);
+    }
+    
+    public function f_pickup(Request $request,$type){
+        if ($type === 'pickup') {
+            if ( $request->input === "") {
+                $data=pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('pickups.p_state','readying')->get();
+            }else{
+                $data=pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('pickups.p_state','readying')->where('pickups.c_token_pick_up','LIKE','%'.$request->input.'%')->get();
+            }
+            $datapick=view('components.loop_user_pickups',['data'=>$data])->render();
+            return response()->json(['data'=>$datapick]);
+        } else {
+            if ( $request->input === "") {
+                $data=deliverys::join('carts','deliverys.checkouts_id','=','carts.checkout_id')
+                ->join('products','carts.product_id','=','products.id')
+                ->join('address','deliverys.addres_id','=','address.id')
+                ->join('users','carts.user_id','=','users.id')->where('pickups.p_state','!=','successful')->get();
+            }else{
+                $data=deliverys::join('carts','deliverys.checkouts_id','=','carts.checkout_id')
+                ->join('products','carts.product_id','=','products.id')
+                ->join('address','deliverys.addres_id','=','address.id')
+                ->join('users','carts.user_id','=','users.id')->where('pickups.p_state','!=','successful')->where('deliverys.checkouts_id','LIKE','%'.$request->input.'%')->get();
+            }
+            $datapick=view('components.loop_user_delivery',['data'=>$data])->render();
+            return response()->json(['data'=>$datapick]);
+        }
+        
     }
 
     public function f_login(Request $request){
@@ -75,4 +113,5 @@ class admin_controller extends Controller
             return redirect()->route('login')->with('message','you login failed too much time');
         }        
     }
+
 }
