@@ -47,12 +47,12 @@
             <h4>Location</h4>
             <p>123 Market Street, Fresh Town</p>
         </div>
-        <div class="footer-section">
+        {{-- <div class="footer-section">
             <h4>Follow Us</h4>
             <a href="#">Facebook</a> | 
             <a href="#">Instagram</a> | 
             <a href="#">Twitter</a>
-        </div>
+        </div> --}}
     </div>
     <div class="footer-bottom">
         <p>&copy; 2024 Vegetable Seller. All rights reserved.</p>

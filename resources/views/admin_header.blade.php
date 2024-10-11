@@ -8,7 +8,7 @@
         <a href="{{ route('admin_main') }}"><button  class="header-button">View Product</button></a>
         <a href="{{ route('admin_add_product') }}"><button  class="header-button">Add Product</button></a>
         <a href="{{ route('user_pickup') }}"><button  class="header-button">User resit</button></a>
-        <a href="{ route('user_message') }}"><button class="header-button">Message</button></a>
+        <a href="{{ route('refund_message') }}"><button class="header-button">Message</button></a>
         <a href="{{ route('f_s_logout') }}"><button class="header-button">Logout</button></a>
 
     </div>
@@ -32,12 +32,12 @@
             <h4>Location</h4>
             <p>123 Market Street, Fresh Town</p>
         </div>
-        <div class="footer-section">
+        {{-- <div class="footer-section">
             <h4>Follow Us</h4>
             <a href="#">Facebook</a> | 
             <a href="#">Instagram</a> | 
             <a href="#">Twitter</a>
-        </div>
+        </div> --}}
     </div>
     <div class="footer-bottom">
         <p>&copy; 2024 Vegetable Seller. All rights reserved.</p>

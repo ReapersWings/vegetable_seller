@@ -63,7 +63,8 @@ class user_controller extends Controller
         $formregister=$request->validate([
             'name'=>['required',Rule::unique('users','name')],
             'password'=>'required|confirmed',
-            'email'=>['required',Rule::unique('users','email')]
+            'email'=>['required',Rule::unique('users','email')],
+            'phone_number'=>['required',Rule::unique('users','phone_number')]
         ]);
         $data=User::create($formregister);
         Auth::login($data);

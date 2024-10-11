@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\admins;
 use App\Models\carts;
 use App\Models\deliverys;
+use App\Models\messages;
 use App\Models\pickups;
 use App\Models\products;
 use Illuminate\Http\Request;
@@ -34,6 +35,11 @@ class admin_controller extends Controller
     public function pickup(){
         return view('view_user_pickup',[
             'data'=>pickups::join('carts','pickups.checkouts_id','=','carts.checkout_id')->join('products','carts.product_id','=','products.id')->where('pickups.p_state','readying')->get()
+        ]);
+    }
+    public function message(){
+        return view('message',[
+            'data'=>messages::orderBy('created_at','DESC')->join('users','messages.user_id','=','users.id')->get(['users.name','messages.message','messages.created_at'])
         ]);
     }
     public function f_logout(Request $request){

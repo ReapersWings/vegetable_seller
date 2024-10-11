@@ -68,6 +68,7 @@ Route::middleware(check_auth::class)->group(function(){
         Route::get('/view_history_product/{type}','history_product')->name('history_product');
         Route::get('/components_loop_history_delivery/{type}','history_delivery')->name('history_delivery');
         Route::post('/successful_delivery','f_delivery')->name('f_delivery');
+        Route::get('/refund/{checkout_id}','refund')->name('refund');
     });
 });
 
@@ -77,6 +78,7 @@ Route::middleware(check_admin::class)->group(function(){
         Route::get('/s_main','main')->name('admin_main');
         Route::get('/user_resit','pickup')->name('user_pickup');
         Route::get('/view_user_resit/{id}/{pickup}','view_resit')->name('view_user_resit');
+        Route::get('/message','message')->name('refund_message');
 
         Route::post('/f_view_pickup/{type}','f_pickup')->name('loop_pickup');
         Route::post('/f_s_login','f_login')->name('f_seller_login')->withoutMiddleware(check_admin::class);

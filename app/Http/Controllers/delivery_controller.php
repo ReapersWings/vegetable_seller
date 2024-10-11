@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\emailrefund;
 use App\Models\carts;
 use App\Models\deliverys;
+use App\Models\messages;
 use App\Models\pickups;
+use App\Models\products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class delivery_controller extends Controller
 {
@@ -43,8 +47,23 @@ class delivery_controller extends Controller
     public function history(){
         return view('view_history');
     }
-    public function history_product($type){
-
+    public function refund($checkout_id){
+        $data=carts::join('products','carts.product_id','=','products.id')->get();
+        Mail::to(Auth::user()->email)->send(new emailrefund($data));
+        deliverys::where('checkouts_id',$checkout_id)->delete();
+        $carts = carts::where('checkout_id',$checkout_id) ;
+        $cartsdata=$carts->get();
+        $totalprice=0 ;
+        foreach ($cartsdata as $row) {
+            $product=products::where('id',$row['product_id']);
+            $productdata=$product->get();
+            $changequantity = $productdata['p_total_quantity']+$row['c_quantity'] ;
+            $product->update(['p_total_quantity'=>$changequantity]);
+            $totalprice+=$row['c_total_price'];
+        }
+        $carts->update(['checkout_id'=>'','c_state'=>'delete']);
+        messages::create(['user_id'=>Auth::id(),'message'=>'Refund RM'.$totalprice.' to user '.Auth::user()->phone_number]);
+        return redirect()->route('history')->with('message','Refunding!');
     }
     public function history_delivery($type){
         if ($type === 'deliverys') {

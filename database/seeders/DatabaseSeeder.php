@@ -20,13 +20,15 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com'
+            'email' => 'test@example.com',
+            'phone_number'=>'012-2344566'
         ]);
         User::create([
             'name'=>'a',
             'email'=>'ooi98872@gmail.com',
             'email_verified_at'=>'2024-08-22 02:43:09',
-            'password'=>'1'
+            'password'=>'1',
+            'phone_number'=>'011-1111111'
         ]);
         address::create([
             'name_location'=>'Home',

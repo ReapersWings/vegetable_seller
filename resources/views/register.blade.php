@@ -16,6 +16,11 @@
     @error('email')
         <p>{{ $message }}</p>
     @enderror
+    <label for="">Phoen number:</label>
+    <input type="text" name="phone_number" value="{{ old('phone_number') }}"><br>
+    @error('phone_number')
+        <p>{{ $message }}</p>
+    @enderror
     <label for="">Password:</label>
     <input type="password" name="password"><br>
     @error('password')
