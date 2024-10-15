@@ -46,7 +46,7 @@ class admin_controller extends Controller
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login')->with('message','logout successful');
+        return redirect()->route('admin_login')->with('message','logout successful');
     }
     public function view_resit($id,$pickup){
         if ($pickup === 'pickup') {
