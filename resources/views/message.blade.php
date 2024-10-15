@@ -19,7 +19,7 @@
         @endforeach
     </table>
 @else
-    <h1>No message to seller</h1>
+    <h1 class="no-delivery">--No Vegetables are currently being Pick up--</h1>
 @endif
     
 @endsection

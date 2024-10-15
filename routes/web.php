@@ -68,7 +68,7 @@ Route::middleware(check_auth::class)->group(function(){
         Route::get('/view_history_product/{type}','history_product')->name('history_product');
         Route::get('/components_loop_history_delivery/{type}','history_delivery')->name('history_delivery');
         Route::post('/successful_delivery','f_delivery')->name('f_delivery');
-        Route::get('/refund/{checkout_id}','refund')->name('refund');
+        Route::get('/refund/{checkout_id}/{type}','refund')->name('refund');
     });
 });
 
@@ -81,8 +81,13 @@ Route::middleware(check_admin::class)->group(function(){
         Route::get('/message','message')->name('refund_message');
 
         Route::post('/f_view_pickup/{type}','f_pickup')->name('loop_pickup');
+        Route::post('/loop_main/{list}','f_loop_main')->name('loop_main')->withoutMiddleware(check_admin::class);
+
         Route::post('/f_s_login','f_login')->name('f_seller_login')->withoutMiddleware(check_admin::class);
         Route::get('/s_logout','f_logout')->name('f_s_logout');
         
     });
+});
+Route::get('/test',function(){
+    return view('testpage');
 });

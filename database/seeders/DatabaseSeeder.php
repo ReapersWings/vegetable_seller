@@ -42,14 +42,14 @@ class DatabaseSeeder extends Seeder
         products::create([
             'image'=>'images/IbDYCSK525TOOBHA7UgTQJYG5ApCY3LTeqSusUze.jpg',
             'p_name'=>'test',
-            'p_total_quantity'=>'1231541000',
-            'p_price'=>'1000'
+            'p_total_quantity'=>1231541000,
+            'p_price'=>1000
         ]);
         products::create([
             'image'=>'images/NitOi4wKnYmTXNMBb3JRqwjVZD7iqHjxNGAT3z3w.jpg',
             'p_name'=>'test1',
-            'p_total_quantity'=>'123141414000',
-            'p_price'=>'100'
+            'p_total_quantity'=>123141414000,
+            'p_price'=>100
         ]);
         admins::create([
             'username'=>'Admin_seller',

@@ -29,11 +29,11 @@
                             @endfor
                             <p class="text" style="float: right;width:50%">Your addres: <a href="{{ route('view_addres') }}">{{ $row[$i]['name_location'] }}</a></p>
                             <p class="text" style="float: left;width:50%">Total price : <b>RM{{ $total_price }}</b></p>
-                            
+                            @if ($row[$i]['d_state']==='readying')
+                                <a href="{{ route('refund',['checkout_id'=>$row[$i]['checkouts_id'],'type'=>'delivery']) }}"><button style="width: 100%;border:2px solid black;border-radius:25px;height:25px">Refund</button></a>
+                            @endif
                         </div>
-                        @if ($row[i]['d_state']==='readying')
-                            <a href="{{ route('refund',$row[$i]['checkouts_id']) }}"><button>Refund</button></a>
-                        @endif
+                        
                     </td>
                     @if ($data === "Not Delivery be on the way!")
                     <td>

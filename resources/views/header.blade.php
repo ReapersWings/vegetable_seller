@@ -6,12 +6,12 @@
 <header class="header-container">
     <div class="left-section">
         <img src="{{ asset('storage/images/') }}" alt="">
-        <a href="{{ route('main') }}"><button class="header-button">Vegetable seller</button></a>
+        <a href="{{ route('main') }}"><button class="header-button"><b>Vegesel</b></button></a>
     </div>
     <div class="right-section">
         @auth
         <div class="profileselect">
-            {{ auth()->user()->name }}
+            <b style="height: 35px">{{ auth()->user()->name }}</b>
             <div class="profile-dropdown">
                 <a class="header-button" href="{{ route('userdata') }}"><button>Profile</button></a><br>
                 <a class="header-button" href="{{ route('cart') }}"><button>Cart</button></a><br>
@@ -93,7 +93,9 @@ body {
 .header-button, .header-button>button {
     width: 95%;
     border-radius: 25px;
-    margin-top: 2px; 
+    margin-top: 4px; 
+    height: 30px;
+
 }
 
 .profileselect {

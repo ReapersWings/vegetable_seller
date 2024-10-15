@@ -31,6 +31,7 @@
                 <p class="error-message">{{ $message }}</p>
             @enderror
             <button type="submit" class="add-to-cart" name="product_id" value="{{ $data->id }}">Add to Cart</button>
+            <a href="{{ route('main') }}" ><button type="button" class="add-to-cart" style="width: 100%">Back</button></a>
         </div>
     </form>
 </div>

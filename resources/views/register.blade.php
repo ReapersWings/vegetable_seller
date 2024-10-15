@@ -28,6 +28,7 @@
     @enderror
     <labeL>Password verify:</labeL>
     <input type="password" name="password_confirmation"><br>
-    <input type="submit" id="submit">
+    <button type="submit" id="submit">Submit</button>
+    <a href="{{ route('login') }}"><button type="button">Back</button></a>
 </form>
 @endsection

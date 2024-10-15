@@ -21,7 +21,7 @@
     }
 </script>
 <style>
-    body {
+body {
     background-color: aquamarine;
     margin: 0;
     padding: 0;
@@ -52,7 +52,7 @@ label {
     text-align: left;
 }
 
-input[type="text"], input[type="password"] ,input[type="number"]{
+input[type="text"], input[type="password"] ,input[type="number"],input[type="email"]{
     width: 100%; /* Full width for inputs */
     border-radius: 10px;
     margin-bottom: 10px;
@@ -83,10 +83,11 @@ p {
     text-align: left;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     /* Larger screens */
     div {
-        max-width: 50%; /* Restore original width for larger screens */
+        max-width: 100%; /* Restore original width for larger screens */
+        font-size: 50px
     }
 }
 

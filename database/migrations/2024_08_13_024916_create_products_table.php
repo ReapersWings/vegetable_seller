@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('image')->nullable();
             $table->string('p_name');
-            $table->string('p_total_quantity');
-            $table->string('p_price');
+            $table->decimal('p_total_quantity', 20, 0);
+            $table->double('p_price');
             $table->timestamps();
         });
     }

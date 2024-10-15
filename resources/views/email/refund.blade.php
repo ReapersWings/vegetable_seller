@@ -12,7 +12,7 @@
     @endphp
     <table>
         <tr>
-            <th colspan="2"><h1>Resit : {{ $data['checkouts_id'] }}</h1></th>
+            <th colspan="2"><h1>Resit : {{ $data[0]['checkout_id'] }}</h1></th>
         </tr>
         @foreach ($data as $row)
             <tr>

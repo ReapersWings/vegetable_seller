@@ -19,7 +19,7 @@ class admin_controller extends Controller
         $this->faillogin = 1 ;
     }
     public function main(){
-        $data = products::all();
+        $data = products::orderBy('created_at','DESC')->get();
         return view('admin_main',[
             'product'=>$data
         ]);
@@ -67,7 +67,33 @@ class admin_controller extends Controller
             'type'=>$pickup
         ]);
     }
-    
+    public function f_loop_main(Request $request,$list){
+        $data=products::where("p_total_quantity",">","0") ;
+        if ($list !== 'Reverse') {
+            $listdata='DESC';
+        }else{
+            $listdata='ASC';
+        }
+        switch ($request->input) {
+            case 'data':
+                $order=$data->orderBy('created_at',$listdata) ;
+                break;
+            case 'name':
+                $order=$data->orderBy('p_name',$listdata) ;
+                break;
+            case 'quantity':
+                $order=$data->orderBy('p_total_quantity',$listdata) ;
+                break;
+            case 'price':
+                $order=$data->orderBy('p_price',$listdata) ;
+                break;
+        }
+        // $final=$order->get();
+        $final=$order->paginate(8);
+        $datapick=view('components.loop_mainpage_product',['data'=>$final])->render();
+        return response()->json(['data'=>$datapick]);
+    }
+
     public function f_pickup(Request $request,$type){
         if ($type === 'pickup') {
             if ( $request->input === "") {

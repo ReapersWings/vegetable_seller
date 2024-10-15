@@ -1,26 +1,100 @@
 @extends('header')
 
 @section('content')
-    <h1>Vegetables or Fruits Seller</h1>
-    
-    <div class="product-list">
-        @foreach ($data as $row)
-            <a href="{{ route('product_data', ['data' => $row->id]) }}" class="product-link">
-                <button class="product">
-                    <div class="product-border">
-                        <img src="{{ asset('storage/'.$row->image) }}" alt="{{ $row->p_name }}" class="product-image">
-                        <h5>{{ $row->p_name }}</h5>
-                        <p><b>RM{{ $row->p_price }}</b></p>
-                        <p><b>{{ $row->p_total_quantity }}G</b></p>
-                    </div> 
-                </button>
-            </a>
-        @endforeach
-    </div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+    <title>Document</title>
+    <h1 style="width: 100%; text-align: center;">VegeSel</h1>
+<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+    <select name="select" id="select" style="width: 85%; height: 40px; padding: 5px; font-size: 16px;margin-left:4px">
+        <option value="date">Date</option>
+        <option value="name">Name</option>
+        <option value="quantity">Quantity</option>
+        <option value="price">Price</option>
+    </select>
+    <button id="checkboxid" style="width: 12%; height: 40px; display: flex; justify-content: center; align-items: center; padding: 0;margin-right:4px">
+        <i class="material-icons" style="font-size: 20px;" id="iconimage">arrow_upward</i>
+    </button>
+</div>
 
-    <div class="pagination">
-        {{ $data->links() }}
+<style>
+    /* Responsive design */
+    @media only screen and (max-width: 600px) {
+        h1 {
+            font-size: 24px;
+        }
+
+        select {
+            width: 80%; /* Adjust width for smaller screens */
+            height: 40px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 18%; /* Adjust button size */
+            height: 40px;
+        }
+
+        i {
+            font-size: 16px; /* Adjust icon size */
+        }
+    }
+</style>
+
+    <div id="content">
+       <x-loop_mainpage_product :data=$data />
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+    let listvalue = 1 ;
+    $('#checkboxid').on('click',function(){
+        if (listvalue === 1) {
+            listvalue-=1
+            functionajax('#select')
+
+            $('#iconimage').html("arrow_downward")
+        } else {
+            listvalue+=1
+            functionajax('#select')
+            $('#iconimage').html("arrow_upward")
+        }
+        
+    })
+    const functionajax = function(target){
+        console.log(listvalue)
+        if (listvalue === 0 ) {
+            urlvalue='{{ route("loop_main","sequence") }}'
+            console.log('sequence')
+        } else {
+            urlvalue='{{ route("loop_main","Reverse") }}'
+            console.log('Reverse')
+        }
+        console.log(urlvalue)
+        $.ajax({
+            url: urlvalue ,
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                input: $('#select').val(),
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response){
+                console.log("Response received: ", response);  // Debugging statement
+                $('#content').html(response.data);
+            },
+            error: function(xhr, status, error){
+                console.error("AJAX error: ", status, error);  // Debugging statement
+                $('#content').html("<h1>No Results Found</h1>");
+            }
+        });
+    }
+    $('#select').on('change',function(){
+        functionajax('#select')
+    })
+    </script>
 
     <style>
         .product-list {

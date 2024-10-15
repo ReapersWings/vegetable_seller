@@ -41,10 +41,16 @@
         <p>You need to contact the seller for refunds</p>
         <p>Phone: 012-3456789</p>
     </div>
+    @else
+        <h1 class="no-delivery"><---Not have anything being pickup---></h1>
     @endif
 </div>
 
 <style>
+    .no-delivery {
+            text-align: center;
+            color: #ff6f61;
+        }
     .navigation {
         text-align: center;
         margin-bottom: 20px;
@@ -55,6 +61,10 @@
         color: #007bff;
         font-weight: bold;
     }
+    .no-delivery {
+            text-align: center;
+            color: #ff6f61;
+        }
     .nav-link:hover {
         text-decoration: underline;
     }

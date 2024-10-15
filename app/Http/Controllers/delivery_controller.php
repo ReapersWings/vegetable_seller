@@ -47,21 +47,26 @@ class delivery_controller extends Controller
     public function history(){
         return view('view_history');
     }
-    public function refund($checkout_id){
-        $data=carts::join('products','carts.product_id','=','products.id')->get();
+    public function refund($checkout_id,$type){
+        $data=carts::join('products','carts.product_id','=','products.id')->where('checkout_id',$checkout_id)->get();
         Mail::to(Auth::user()->email)->send(new emailrefund($data));
-        deliverys::where('checkouts_id',$checkout_id)->delete();
+        if ($type === 'delivery') {
+            deliverys::where('checkouts_id',$checkout_id)->delete();
+        }else{
+            pickups::where('checkouts_id',$checkout_id)->delete();
+        }
         $carts = carts::where('checkout_id',$checkout_id) ;
         $cartsdata=$carts->get();
         $totalprice=0 ;
         foreach ($cartsdata as $row) {
             $product=products::where('id',$row['product_id']);
             $productdata=$product->get();
-            $changequantity = $productdata['p_total_quantity']+$row['c_quantity'] ;
+            //dd($productdata);
+            $changequantity = $productdata[0]['p_total_quantity']+$row['c_quantity'] ;
             $product->update(['p_total_quantity'=>$changequantity]);
             $totalprice+=$row['c_total_price'];
         }
-        $carts->update(['checkout_id'=>'','c_state'=>'delete']);
+        $carts->update(['checkout_id'=>null,'c_state'=>'delete']);
         messages::create(['user_id'=>Auth::id(),'message'=>'Refund RM'.$totalprice.' to user '.Auth::user()->phone_number]);
         return redirect()->route('history')->with('message','Refunding!');
     }

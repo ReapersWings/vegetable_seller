@@ -8,7 +8,7 @@
         <p>{{ $message }}</p>
     @enderror
     <div style="max-width: 100%;margin-top:4px">
-        <img src="{{ old('image') }}" alt="" id="imagedisplay">    
+        <img src="{{ old('image') }}" alt="" id="imagedisplay" style="max-width: 100%">    
     </div>
     <label for="">Vagetable Name:</label>
     <input type="text" name="p_name" value="{{ old('p_name') }}">
