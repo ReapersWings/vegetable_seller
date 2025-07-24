@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->bigInteger('c_id')->primary()->autoIncrement()->unsigned();
+            $table->bigIncrements('c_id');
             $table->integer('checkout_id')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products','id')->onDelete('cascade');
