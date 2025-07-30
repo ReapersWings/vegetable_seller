@@ -8,7 +8,7 @@
     <h1>Please verify your email</h1>
     <label for="">Email Verify:</label>
     <input type="text" name="token">
-    <a type="button" id="a" href="javascript:void(0);">Send_token</a>
+    <a type="button" id="a" href="{{ route('send_token') }}">Send token</a>
     <input type="submit" id="submit">
 </form>
 <style>
