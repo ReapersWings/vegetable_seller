@@ -47,7 +47,8 @@ class user_controller extends Controller
     }
     public function f_verify(Request $request){
         $data=password_reset_tokens::where('email','=',Auth::user()->email)->where('expire_date','>','NOW()');
-        //dd($email);
+        $email = $data->first();
+        dd([$data,$email]);
         if ($email=$data->get()->first()) {
             if ($email['token']===$request->token) {
                 User::where('email',Auth::user()->email)->update(['email_verified_at'=>new DateTime('now')]);
