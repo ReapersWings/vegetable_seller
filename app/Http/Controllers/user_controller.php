@@ -66,7 +66,6 @@ class user_controller extends Controller
             'email'=>['required',Rule::unique('users','email')],
             'phone_number'=>['required',Rule::unique('users','phone_number')]
         ]);
-        dd($formregister);
         $data=User::create($formregister);
         Auth::login($data);
         
